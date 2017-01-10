@@ -1,8 +1,81 @@
-\chapter{background}
-background
+\chapter{Prior Knowledge}
+In this chapter as prior knowledge we explain 3 things to understand this thesis.
 
-\section{sentimental analysis} \label{RTE}
-sentimental analysis
-\section{SVM} \label{sec:word2vec}
-support vector machine
+\section{Sentiment Analysis} \label{sec:sentimen_analysis}
+Sentiment analysis usually means the automatic determination of subjectivity (whether a text is objective or subjective), polarity (positive, negative or neutral) or strength (strongly or weakly positive/negative).
+Figure \ref{fig:sentiment_analysis} shows an example of sentiment analysis.
+In this case the system takes a sentence as input and determines if it is positive, negative or neutral. 
+Analysing thousands of tweets figures out a valuable opinion.
+In fact sentiment analysis is applied to many areas and one of them is movie review \cite{movie_review}.
+An It company in South Africa actually predicted the result of the U.S presidential election in November 2016 by analysing tweets \cite{us_election}.
+\begin{figure}
+	\centering
+	%\scalebox{0.8}[0.9]{
+	\includegraphics[width=10cm]{./fig/sentiment_analysis.png}
+	%}
+	\caption{Example of sentiment analysis}
+	\label{fig:sentiment_analysis}
+\end{figure}
 
+%figure of sentiment analysis 
+
+There are 2 kinds of approaches to sentiment analysis: a word-based or semantic approach, or a machine learning approach.
+The word-based approach used dictionaries of words tagged with their semantic orientation and calculates sentiment value by aggregating the values of those present in a sentence \cite{Turney}.
+The ML approach uses collections of texts that are known to express a favourable or unfavourable opinion as training data and learns to recognise sentiment based on those examples \cite{Pang}.
+
+An example of the word-based semantic approach is \cite{Brooke}.
+The authors make dictionaries, additionally taking into account  the role of negation, intensifications and so on.
+Each word in the dictionaries is given a semantic orientation value that are ranked by English native speakers and the range of the value is between 5 and -5.
+The numerical values are chosen to reflect both the prior polarity and strength of the word, averaged across likely impressions.
+For example, the word $phenomenal$ is 5, $nicely$ is 2 and $disgust$ is -3.
+They handle the negation by shifting a fixed amount, which is 4 in the research, toward the original value.
+This means that the negation of a strongly negative word (e.g. $terrible$) becomes neutral or weakly negative ($not$ $terrible$ -5 + 4 = -1 instead of 5).
+And the negation of weakly positive word, such as $nice$, is equally negative ($not$ $nice$ 2 - 4 = -2).
+
+They consider intensification words like $very$.
+Each expression in the intensifier dictionary is associated with a multiplier value.
+If it appears in a sentence, the semantic orientation value of any adjective modified by $very$ is increased by 25 \%, for instance. 
+There are three other kinds of intensifications: the use of all capital letters, the use of exclamation points and the use of discourse $but$ to indicate more important information.
+
+Although the word-based semantic approach takes many different aspects of a text into account, there are several disadvantages.
+This approach requires precise and deep understanding of the language to make the rules and the resources need to be built from scratch.
+Therefore it is necessary to ask the native speakers to take part in the project to make the dictionary as the annotators.
+Even if some native speakers of the languages agree to contribute, there is a concern of consistency.
+Especially when in the numerical value approach, it is possible to get different values of some words from the annotators because they give the values based on their own impressions of the words.
+One of them put $nicely$ -1 but other put -2, for instance.
+To make the dictionary, the values need to be adjusted.
+%Then with the dictionary, the rule of the language is required to decide how to handle the grammar of the language (e.g. how to see if a sentence has negation).
+
+
+%This approach follows the grammar of the language.
+Contrary to the word-based semantic approach, the machine learning approach requires only the sentences annotated to each polarity and does not need to make the rules of the language.
+The machine learning approach is available if there is enough data to train classifiers.
+When in a multi-language sentiment analysis, the word-based approach is more difficult than the machine learning approach because of the complexity of making the rules and so on.
+If the feature vector of a machine learning is Bag Of Words (BOW), it can handle grammatically wrong sentences, which are seen on Twitter sometimes .
+
+
+The machine learning approach does not consider the grammar of the language.
+Therefore it possibly makes apparent mistakes.
+A sentence that looks positive sentiment to humans apparently does not have to be labelled as positive because the criteria to put the sentiment values is independent of the language itself.
+%There is no certain that a classifier trained by machine learning labels
+
+
+
+\section{Multi-Class Classification} 
+\subsection{Support Vector Machine}
+one vs. one and one vs. all
+equations ??
+\subsection{Random Forest}
+equations and the explanation
+
+\section{Place ID of Twitter API}
+what is place ID ?
+figure of the screen shot 
+
+with place id it is possible to search tweets by location
+
+example of place id list
+
+\section{Chi Square Test of Independence}
+maybe in chapter 5 (experiment)
+what is Chi square test
