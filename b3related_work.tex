@@ -1,10 +1,81 @@
 \chapter{Related Work}
-Related Work -multi language-
-International Sentiment Analysis
-machine translation from english to other languages
+In this chapter we introduce three related works of this thesis.
+\section{Sentiment Analysis for News and Blogs}
+Bautin et al. perform multi-language sentiment analysis and focus on news and blogs \cite{news_blogs}.
+The authors utilise the machine translation technology in order to handle nine languages, which are Arabic, Chinese, English, French, German, Italian, Japanese, Korean and Spanish.
+They translate foreign texts to English using IBM Web-Sphere Translation Server (WTS).
+They generalise the Lydia sentiment analysis system \cite{lydia} to monitor international opinion by aggregating daily news data from about 200 international English papers and over 400 sources partitioned among the eight languages. 
 
-Exploring demographic language variations to improve multilingual sentiment analysis
-sentiment analysis social media in multi-language
+Their approach to the sentiment analysis is the word-based semantic approach.
+They construct the sentiment lexicon propagated by WordNet \cite{wordnet} synonym and anonym links.
+And every adjective is assigned a polarity score.
+Using the sentiment lexicon, positive and negative word occurrences are marked up in the article corpus.
+For every entity and every day $i$, the number of positive and negative sentiment words co-occurring with that entity in the same sentence ($pos\_sentiment\_refs_i$ and $neg\_sentiment\_refs_i$) are calculated.
+For every entity, its polarity score on a given day $i$ is then calculated as 
+\begin{equation}
+entity\_polarity_i = \frac{pos\_sentiment\_refs_i}{total\_sentiment\_refs_i}
+\end{equation}
+and its subjectivity score as 
+\begin{equation}
+entity\_subjectivity_i = \frac{total\_sentiment\_refs_i}{total\_occurrences_i}
+\end{equation}
+The polarity score reflects whether the sentiment associated with the entity is positive or negative, and the subjectivity score, how much sentiment of any polarity the entity receives.
+These two measures are used in this work.
 
-Language Independent Twitter Sentiment Analysis
-closest one to this research
+They compute daily entity sentiment scores over ten days for entities extracted from a subset of news text translated from the nine languages.
+The experiments of the research show that their method of calculating entity sentiment scores is consistent with respect to varying languages and new sources.
+
+\section{Multilingual Sentiment Analysis on Social Media Exploring Demographic} 
+Volkova et al. focus on learning gender differences in the use of subjective language in English, Spanish and Russian Twitter data \cite{gender_analysis}.
+And they explore the differences in emoticon and hashtag use for male and female users.
+They find that some words are more or less likely to be positive or negative context depending on the gender of the author.
+For example, the word $weakness$ is more likely to be used in a positive way by women ($Chocoloate$ $is$ $my$ $weakness$.) but in a negative way by men($Clearly$ $they$ $know$ $our$ $weakness$).
+This thing happens not only in English but also in the other languages.
+
+For the experiment, they use 0.8 M tweets labelled for gender but unlabelled for sentiment and, 2K development data and 2K test data labelled for both sentiment and gender.
+They use the unlabelled data to bootstrap Twitter-specific lexicons and investigate gender differences in the use of subjective language.
+The development data is used for parameter tuning to make sentiment lexicon. 
+
+They use the corpus-based, language independent approach proposed by \cite{twitter_lexicon} to bootstrap Twitter-specific subjectivity lexicons.
+At first, the new lexicon is seeded with terms in an initial lexicon $L_I$, which is MPQA lexicon \cite{mpqa}. 
+On each iteration, tweets in the unlabelled data are labelled using the current lexicon.
+If a tweet contains one or more terms from the lexicon, it is marked subjective.
+The polarity determination takes into account of negation.
+For every term not in the lexicon with a frequency threshold, the probability of that word appearing in a subjective sentence is calculated.
+Then some of the top terms with a subjective probability are added to the lexicon.
+
+To cover the other two languages, they also adapt a translation approach. 
+For English, seed terms are the strongly subjective terms in the initial lexicon.
+For Spanish and Russian the seed terms using a bi-lingual dictionary, collecting subjectivity judgements from Amazon Mechanical Turk on the translations, filtering out translations that are not strongly subjective, and expanding the resulting word lists with plurals and inflectional forms.
+
+
+With the Twitter-specific sentiment lexicons, they investigate how the subjective use of the terms differs depending on gender for the three languages.
+They figure out that 9.3 \%, 13.0 \%, 12.9 \% of the sentiment terms in English, Spanish and Russian respectively are likely to be used in a negative context by male users but in a positive context by female users.
+They investigate the differences of the usage of hashtags and emotions as well.
+
+
+%Exploring demographic language variations to improve multilingual sentiment analysis
+%sentiment analysis social media in multi-language
+
+\section{Language Independent Twitter Sentiment Analysis}
+Narr et al. examine a language-independent sentiment classification approach for an analysis of Twitter \cite{dataset}.
+More precisely, they introduce a semi-supervised heuristic labelling polarity.
+They train a Na\"\i ve Bayes classifier on n-gram features to label the sentiment polarity of tweets and evaluate it on over 10,000 tweets in four languages that are annotated by humans.
+The four languages are English, French, German and Portuguese.
+For the experiment, they collected over 800M tweets in total.
+
+The authors use emoticons as noisy labels to generate training data from unlabelled tweets.
+This approach is used in \cite{pak} as well.
+They assign polarity class lables to tweets based on the existence of positive or negative emoticons.
+If a tweets contains one of the positive emoticons and no negative ones, the tweets is labelled as positive and vice versa.
+Below are shown some of the emoticons used in the research.
+
+Example of positive emoticons:
+:) :-) =) ;) :] :D ...
+
+Example of negative emoticons:
+:( :-( :(( D: :/ ...
+
+The best accuracy performances were 81.3 \% for English, 74.9 \% for French, 79.8 \% for German and 64.9 \% for Portuguese.
+All of these best performances were achieved using the unigram classifier.
+

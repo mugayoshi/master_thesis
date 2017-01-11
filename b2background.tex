@@ -19,7 +19,7 @@ An It company in South Africa actually predicted the result of the U.S president
 
 %figure of sentiment analysis 
 
-There are 2 kinds of approaches to sentiment analysis: a word-based or semantic approach, or a machine learning approach.
+There are two kinds of approaches to sentiment analysis: a word-based or semantic approach, or a machine learning approach.
 The word-based approach used dictionaries of words tagged with their semantic orientation and calculates sentiment value by aggregating the values of those present in a sentence \cite{Turney}.
 The ML approach uses collections of texts that are known to express a favourable or unfavourable opinion as training data and learns to recognise sentiment based on those examples \cite{Pang}.
 
@@ -69,13 +69,47 @@ equations ??
 equations and the explanation
 
 \section{Place ID of Twitter API}
-what is place ID ?
-figure of the screen shot 
+The place ID of Twitter API \cite{twitter_api_placeid} makes it possible to search tweets by each location. 
+Named locations of districts of a city around the world are given each place ID in Twitter API.
+For example, the place ID of Twitter head quarter is "07d9cd6afd884001".
+Figure \ref{fig:tweet} shows a part of the screenshot that is displayed when a user tweets somewhere in Tokyo.
+In the figure, there are four options displayed (Chiyoda Tokyo, Tokyo Japan, Japan, and Chiba Kanto Area).
+The suggested places are shown based on the place ID where the user is tweeting.
+If a user turns on location service, the user can set one of the suggested areas as location information. 
+Even when users don't turn on GPS service on their phone, these places are shown because they are displayed based on place ID of Twitter API.
 
-with place id it is possible to search tweets by location
+There are three types of place ID.
+One of them represents a named location like the previous example of Twitter head quarter.
+Another represents a whole city (e.g. Tokyo Japan) and the other is district (e.g. Shibuya Tokyo, Japan)
+And each place ID contains an attribute of its own coordinate, latitude and gratitude.
+In contrary, place Id can be searched via the Twitter search API by specifying the coordinate of a place.
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=10cm]{./fig/tweet.png}
+	\caption{Suggested places in Tokyo based on Twitter place ID}
+	\label{fig:tweet}
+\end{figure}
+
+\begin{comment}
+for the chapter of experiment
+With the place ID of an area, tweets from the area can be searched by the Twitter search API.
+%\cite{search_api}.
+For searching as many tweets as possible, we search tweets via the search API by each district or borough of a city.
+We list up basically all of the districts of a city and then search the coordinates of each district because place ID are found by specifying the coordinate of the place or nearby.
+Place ID that represents a whole city are also searched.
+%to set up a list of place ID.
+But to avoid to be too complicated, we do not use place ID of named locations.
+Otherwise it is necessary to set the criteria of choosing searched locations and this can be different depending on cities.
+%Actually there are more tweets that are attached place ID of the whole city than ones searched by place ID of the districts.
+%This is observed for almost all of the candidate cities of this research.
+By collecting the coordinates of the areas in each city and searching the place ID of them, we set up place ID lists of the cities.
 
 example of place id list
-
+\end{comment}
+\begin{comment}
 \section{Chi Square Test of Independence}
 maybe in chapter 5 (experiment)
 what is Chi square test
+\end{comment}
