@@ -1,20 +1,156 @@
-\chapter{Sentiment Analysis across different cities}
-explain proposal sentiment analysis across different cities
-\section{overview}
-figure overview 
+\chapter{Sentiment Analysis across Different Cities}
+In this chapter we propose and explain the sentiment analysis across different cities.
+\section{Overview}
+Figure \ref{fig:overview} describes the overview of the system.
+The system takes collected tweets by city as input.
+They are searched by the Twitter API, specifically with the place ID, which explained in Section \ref{sec:placeid}.
+Tweets are searched by each language by specifying language parameter of the Twitter search API.
+Before the tweets are labelled by the classifiers, they are pre-processed.
+One of the reasons of the preprocessing is to replace an emoji unicode in them with the explanation of the emoji.
+%This replacement is applied to all of the languages.
+The classifiers are built by machine learning and they require training data of annotated tweets, which are labelled positive, negative or neutral.
+In this paper we use three kinds of classifiers.
+Two of them are Support Vector Machine (SVM) for multi class, one versus one and one versus all and the other one is Random Forest.
+During classification, the parameters of each classifier are optimised by cross validation.
+In the end, classifiers label input tweets as one of sentimental values, which are positive, negative or neutral.
 
-\section{preprocessing }
-why emoji needs to be replaced ?
-\cite{emoji}
+The novelty of this system is taking into account location information.
+The location information make an analysis in each location possible.
+And we perform the sentiment analysis in multi-language and this unveils more aspects than monolingual analysis.
 
-how an emoji is replaced
+We explain the details of each process in the following sections.
+\begin{figure}
+	\centering
+	\includegraphics[width=10cm]{./fig/overview2.png}
+	\caption{Overview of sentiment analysis by city}
+	\label{fig:overview}
+\end{figure}
 
-\section{Dataset}
+
+\section{Preprocessing}
+Not only on Twitter but also on SNS as a whole many people are using emoji nowadays \cite{emoji}.
+Besides emojis are used to express not just face expressions.
+There are other categories that are not face mark, such as Animals \& Nature, Food \& Drink, Flags etc.
+Sometimes it takes an important role of a sentence.
+For example, Figure \ref{fig:crying} shows a tweet with an emoji of smiley with tears and the same tweet without the emoji.
+The one with the emoji looks to express something positive but the other one looks to have negative sentiment.
+Like this comparison, just one emoji can influence a sentiment of a sentence, tweet.
+Thus, emojis should not be discarded in sentiment analysis.
+\begin{figure}
+	\centering
+	\scalebox{0.4}[0.4]{
+	\includegraphics[width=10cm]{./fig/crying.png}
+	}
+	\caption{Comparison of a tweet with or without an emoji}
+	\label{fig:crying}
+\end{figure}
+
+
+To detect all of the unicodes of emoji, we use a python module available on github \cite{emoji_package}. 
+This module is originally for output emojis on terminal.
+Figure \ref{fig:thumbs_up} shows an example of how to print an emoji.
+The module also recognises each emoji unicode using a dictionary in the module.
+A part of the dictionary is depicted in Figure \ref{fig:emoji_dict}.
+Therefore we implement a script to detect unicodes of emoji and to replace them with the explanations of each emoji.
+
+
+\begin{figure}
+	\centering
+	\scalebox{1.0}[1.0]{
+	\includegraphics[width=10cm]{./fig/emoji_package.png}
+	}
+	\caption{Example of how to print an emoji on terminal}
+	\label{fig:thumbs_up}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\scalebox{1.0}[1.0]{
+	\includegraphics[width=10cm]{./fig/emoji_dictionary.png}
+	}
+	\caption{A part of a dictionary in emoji module}
+	\label{fig:emoji_dict}
+\end{figure}
+
+
+We replace emoji unicodes by the script using the emoji module, specifically the dictionary in the module.
+%The script detects an unicode of an emoji in a tweet and 
+%In Figure \ref{fig:emoji_replacement}, an emoji at the end of the sentence is replaced with the explanation of the emoji.
+The script detects an unicode of an emoji and replaces it with the description as Figure \ref{fig:emoji_replacement} shows.
+In this way, the tweet can have more meaningful characters for classifiers than the unicode, which is ``u\textbackslash U0001F625"
+In another way of saying, the sentence in Figure \ref{fig:emoji_replacement} gets more information because of the replacement.
+
+However, English is only available for replacement in this module itself.
+Since we perform a multi-language sentiment analysis, we need to handle the other languages.
+In a website \cite{emoji_explanation} explanations of emoji are listed in each category in 12 languages. 
+Not only European languages, even Asian languages, such as Japanese, Chinese, Arabic etc., are also available.
+Based on the descriptions, we manually make CSV file like below.
+Each line in the CSV file contains a key of an emoji and the descriptions of the emoji in English, French, German and Spanish.
+We replace unicodes with the descriptions in each language.
+Tweets are processed in each language.
+So, the replacement in all of the four languages becomes possible by picking one of the descriptions depending on the language. 
+%This replacement is available in all of the four languages.
+\begin{description}
+%{A part of emoji description CSV file}
+%English, Francais, Deutsch, Espa\~{n}ol, Portugu\^{e}s
+%keys,meaning,sens,Bedeutung,significado,significado
+	\item[key] English, French, German, Spanish
+	\item[:soccer\_ball:] Soccer Ball, Ballon de foot, Fu{\ss}ball, Bal\'on de f\'utbol
+	\item[:basketball\_and\_hoop:] Basketball And Hoop, Ballon de basket et panier, Basketball und Korb,Bal\'on de baloncesto y canasta
+	\item[:american\_football:] American Football, Football am\'ericain, American Football, F\'utbol americano
+
+	\item[:baseball:]Baseball, Balle de base-ball, Baseball, Pelota de b\'eisbol
+\end{description}
+
+When a user mentions something from an URL or other users, tweet contains URLs and user names as well.
+On Twitter, mentioning other users makes communication between users possible.
+And users puts an URL to share the website with other users.
+%It is also possible that a user is mentioned in tweets of other users. 
+But they are not really necessary for a sentiment analysis because we do not take into account of user information and shared URL in tweets.
+Therefore we replace URL and user names in tweets with strings, ``~http" and ``@user" respectively.
+The reason to use these strings is because originally they are used in the training dataset described in next section.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=10cm]{./fig/emoji_replacement2.png}
+	\caption{How an emoji is replaced in a tweet}
+	\label{fig:emoji_replacement}
+\end{figure}
+
+
+\section{Dataset}\label{sec:dataset}
 what dataset is used in this research ?
+We do not prepare training dataset ourselves but instead take it from other works.
+The number of dataset of each language are listed in Table \ref{tab:dataset}.
+Spanish dataset is much larger than the others because this is the only dataset from \cite{dataset_spanish} and the others are from \cite{dataset}.
+All of the datasets are annotated by people and importantly the tweets in the datasets are labelled sentimental values.
+Therefore they can be considered to be trustful and we believe the amount of the datasets are large enough.
 
-\section{implementation}
-Classifiers. why SVM is used ?
-why random forest is used ?
+\begin{table}[ht]
+	\caption{Number of dataset of each language}
+	\centering
+	\begin{tabular}{|c|r|} \hline
+	Language & \# of dataset \\ \hline \hline
+	English & 7,200  \\ \hline
+	French & 1,797  \\ \hline
+	German & 1,800  \\ \hline
+	Spanish & 68,000  \\ \hline
+	\end{tabular}
+	\label{tab:dataset}
+\end{table}
+
+
+\section{Implementation of Classifiers}
+Classifiers.
 implement by scikit-learn API in Python 2.7.12
+
+We employ three kinds of classifiers in this paper.
+Originally SVM is a binary classification method but it can be used for multi-class classification as well.
+There are two ways for multi-class classification SVM, one versus one and one versus all.
+One versus one compares two classes of N classes and constructs a hyperplane while one versus all compares one of N classes and the others.
+Random forest is an ensemble learning method that samples random data and constructs decision trees.
+It classifies based on the results of the multiple decision trees. 
+We apply the API of scikit-learn \cite{scikit} to build these classifiers in Python 2.7.12.
 
 
