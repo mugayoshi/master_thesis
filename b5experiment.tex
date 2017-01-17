@@ -1,19 +1,98 @@
 \chapter{Experiment and Result}
-experiment
-\section{Experiment Setup}
-f1 scores
+In this chapter, we describe experiment of sentiment analysis across different cities and show the results.
+\section{Preparation}
+Before the experiment of sentiment analysis across cities, we measure F1 scores of each classifier in the four languages to confirm whether the classifiers built with the given dataset work well enough.
+The dataset is divided to 80 \% training data and 20 \% test data.
+Table \ref{tab:f1score} shows F1 scores of the classifiers in each language.
+As these scores show, we believe these classifiers work well enough to do experiment of sentiment analysis by city.
+
+
+\begin{table}[ht]
+	\caption{F1 scores of each classifier in the four languages}
+	%\scalebox{0.7}[0.8]{
+	\begin{tabular}{|c|r|r|r|} \hline
+	Language&One vs. One SVM &One vs. All SVM &Random Forest\\ \hline \hline
+	English & 0.83 & 0.82 & 0.83  \\ \hline
+	French & 0.78 & 0.82 & 0.72  \\ \hline
+	German & 0.81 & 0.82 & 0.82 \\ \hline
+	Spanish & 0.82 & 0.81 & 0.63  \\ \hline
+	\end{tabular}
+	%}
+	\label{tab:f1score}
+\end{table}
 
 \section{Experiment}
-what city we choose?
 
-how many tweets mange to retrieve
-how long retrieved ?
+We choose 12 cities that have a large population, mostly capitals in fact, because it is likely to retrieve many tweets from such cities.
+%Another reason is that the more data we get, the more precise result we can reach.
+We try to pick cities from as many countries as possible.
+One of the four languages has to be spoken as official language in the chosen cities.
+If possible we choose two cities from the same country. (e.g. New York and San Francisco)
+%For every city, we search almost all of the districts in every city to prepare the place ID list.
+%When preparing place ID list of the cities, 
 
-classified by the 3 classifiers
+We managed to retrieve about a million tweets in total from the beginning of November to 16 January 2017 with a script that uses tweepy, explained in Section \ref{sec:retrieving}.
+During this period, we searched and retrieved tweets from the 12 cities in the four languages by specifying the language parameter in the Twitter search API.
+In Twitter API tweets for searching via the API are available only for a week.
+Thus we retrieve tweets every week during the days.
+In Table \ref{tab:cities} the 12 cities are listed with the numbers of the retrieved tweets.
+
+%! these numbers should be updated !
+\begin{table}[ht]
+	\caption{Number of retrieved tweets of each city}
+	%\scalebox{0.9}[0.8]{
+	\centering
+	\begin{tabular}{|l|r|l|} \hline
+	City&\# of tweets&Language\\ \hline \hline
+	Barcelona & 17,963 & English \\ \hline
+	Berlin & 20,141 & English\\ \hline
+	Hamburg & 3,992 & English\\ \hline
+	London  & 356,227& English\\ \hline
+	Madrid & 17,348 & English \\ \hline
+	New York  & 80,182  & English\\ \hline
+	Paris & 27,955 & English \\ \hline
+	Quebec & 43,171 & English \\ \hline
+	San Francisco & 198,359  & English\\ \hline
+	Lille & 26,705  & French\\ \hline
+	Paris & 139,260 & French\\ \hline
+	Quebec & 18,995 & French\\ \hline
+	Berlin & 30,804 & German\\ \hline
+	Hamburg & 10,720 & German\\ \hline
+	Vienna & 4,997  & German\\ \hline
+	Barcelona&27,064 & Spanish\\ \hline
+	Buenos Aires&683,182  & Spanish\\ \hline
+	Madrid& 29,720 & Spanish\\ \hline
+	\end{tabular}
+	%}
+	\label{tab:cities}
+\end{table}
+
+After preparing retrieved tweet data for classification as explained in Section \ref{sec:overview}, the three classifiers trained with each language dataset put sentiment values to the retrieved tweets.
+We implement a Python script that labels tweets by the classifiers.
+%During classification, the parameters of the classifiers are optimised with cross validation, which uses the APIs of scikit-learn \cite{scikit}.
+%maybe explanation of parameter setting of cross validation ?
+A tweet has to be labelled as one of the sentiment values, positive, negative or neutral.
+%The classification is done by cities and languages.
 
 \section{Result}
-\subsection{English and other languages}
+\subsection{Classification Result}
+The numbers in parentheses represent percentage of each sentiment value
+\subsubsection{English}
+\begin{table}[ht]
+	\caption{Classification Result of London}
+	\begin{tabular}{|l|r|r|r|r|} \hline
+	Classifiers & Positive & Negative & Neutral & Total (tweets)\\ \hline
+	One vs. One SVM & 2 & 3 & 4 & 5\\ \hline
+	One vs. All SVM & 2 & 3 & 4 & 5 \\ \hline
+	Random Forest & 2 & 3 & 4 & 5\\ \hline
+	\end{tabular}
+	\label{tab:result_london}
+\end{table}
 
-\subsection{timeline graph}
+\subsubsection{French}
+\subsubsection{German}
+\subsubsection{Spanish}
+
+\subsection{Timeline graph}
 
 \subsection{Result of Chi Square Test}

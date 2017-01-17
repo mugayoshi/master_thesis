@@ -1,6 +1,6 @@
 \chapter{Sentiment Analysis across Different Cities}
 In this chapter we propose and explain the sentiment analysis across different cities.
-\section{Overview}
+\section{Overview}\label{sec:overview}
 Figure \ref{fig:overview} describes the overview of the system.
 The system takes collected tweets by city as input.
 They are searched by the Twitter API, specifically with the place ID, which explained in Section \ref{sec:placeid}.
@@ -21,11 +21,75 @@ And we perform the sentiment analysis in multi-language and this unveils more as
 We explain the details of each process in the following sections.
 \begin{figure}
 	\centering
-	\includegraphics[width=10cm]{./fig/overview2.png}
+	\includegraphics[width=10cm]{./fig/overview3.png}
 	\caption{Overview of sentiment analysis by city}
 	\label{fig:overview}
 \end{figure}
 
+\section{Retrieving Tweets}\label{sec:retrieving}
+As the first step, we retrieve tweets by city.
+In this section, we explain the detail of how to retrieve tweets of each city.
+As we describe in the last section, we use Twitter Place ID to retrieved tweets.
+A place ID can be searched via Twitter API, specifically GET geo/reverse geocode 
+i%\cite{reverse_geocode}. 
+This API requires parameters of a latitude and a longitude of an area or a place.
+Because of this, we need to know names of areas or districts in a city and then the coordinates of the places to obtain the place IDs.
+
+In order to prepare a place ID list of a city, we investigate areas in a city.
+Paris, the capital city of France, is a good example to explain how to prepare a coordinate list.
+Figure \ref{fig:paris} shows the map of Paris city.
+As this figure shows, there are 20 districts in Paris and they are located in a circular pattern.
+Districts of small numbers, district 1 Louvre and district 2 Bourse for example, are located in the centre of the city and ones of large numbers are placed in the outer. 
+We list up these 20 districts and investigate the coordinate of each district using a website that provides coordinates of places \cite{latitude}.
+%Then we prepare a coordinate list.
+Here is a part of the coordinate list of Paris below.
+
+\begin{enumerate}
+	\item Louvre,48.860,2.337
+	\item Bourse,48.869,2.341
+	\item Temple,48.867,2.361
+	\item Hotel de ville,48.858,2.352
+	\item Pantheon,48.846,2.346
+	\item ....
+\end{enumerate}
+
+\begin{figure}
+	\centering
+	\scalebox{1.2}[1.2]{
+	\includegraphics[width=10cm]{./fig/paris.jpg}
+	}
+	\caption{Districts in Paris}
+	\label{fig:paris}
+\end{figure}
+
+We search place ID with the coordinate file specifying coordinates by the search API.
+The search API requires a latitude and a longitude as parameters and returns place ID of areas that are near the give coordinate. 
+The range can be specified as a parameter.
+In this time, we set 10,000 m (10 km) in the script in any case.
+%City sometime are not larger than 10 km2
+63 place IDs are listed in the place ID file of Paris.
+Here is a part of place id list of Paris.
+
+\begin{enumerate}
+	\item 3102b24b5af90698: Paris, Ile-de-France: Paris
+	\item 32f8d3f2e68f75a0: Gennevilliers, France: Gennevilliers
+	\item 369123d16a0b8b8c: Suresnes, France: Suresnes
+	\item 36f5c7c7ac78dcb4: Bagnolet, France: Bagnolet
+	\item 3a9235462316198a: Le Pré-Saint-Gervais, France: Le Pré-Saint-Gervais
+	\item 3bcf61c45fdc2eae: Vanves, France: Vanves
+	\item 3d91d5bf2791cbd1: Rosny-sous-Bois, France: Rosny-sous-Bois
+\end{enumerate}
+
+With the place ID list of a city, it is ready to retrieve tweets from the city.
+We implement a script to retrieve tweets using a Python module that handles Twitter API, tweepy \cite{tweepy}.
+The reason why we decided to use this module is because it can handle rate limit easily.
+In Twitter API, there is access limit of searching tweets.
+The limit depends on what to search.
+In 15 minutes, there can be only 180 requests for searching tweets and 15 requests for searching followers list for example.
+We implement the script so that we can continue to search tweets while the access limit occurs during the retrieval.
+We need to handle the limit because we search tweets from more than 10 cities and the retrieval takes more than a day.
+The access limit occurs easily in this case.
+%In Figure shows the snippet of the script that retrieve tweets.
 
 \section{Preprocessing}
 Not only on Twitter but also on SNS as a whole many people are using emoji nowadays \cite{emoji}.
@@ -108,7 +172,7 @@ On Twitter, mentioning other users makes communication between users possible.
 And users puts an URL to share the website with other users.
 %It is also possible that a user is mentioned in tweets of other users. 
 But they are not really necessary for a sentiment analysis because we do not take into account of user information and shared URL in tweets.
-Therefore we replace URL and user names in tweets with strings, ``~http" and ``@user" respectively.
+Therefore we replace URL and user names in tweets with strings, ``\~http" and ``@user" respectively.
 The reason to use these strings is because originally they are used in the training dataset described in next section.
 
 \begin{figure}
@@ -118,15 +182,51 @@ The reason to use these strings is because originally they are used in the train
 	\label{fig:emoji_replacement}
 \end{figure}
 
-
 \section{Dataset}\label{sec:dataset}
-what dataset is used in this research ?
-We do not prepare training dataset ourselves but instead take it from other works.
-The number of dataset of each language are listed in Table \ref{tab:dataset}.
+Since we apply machine learning method on the sentiment analysis in this thesis, a training dataset is necessary to train classifiers.
+Besides we focus on Twitter specifically.
+Therefore it is better to have a dataset that contains labelled tweets than one that contains subjective expression with sentiment labels (e.g. sentences extracted from a review site) because the way of expression tends to be different between on Twitter and other platforms.
+Sentences on Twitter tend to be shorter in general mainly because the number in one tweet originally has to be less than 180 characters.
+For these reasons, we choose to use datasets that contain labelled tweets.  
+
+We do not prepare training dataset ourselves in this thesis but instead take it from other works.
+The number of dataset of each language are listed in Table \ref{tab:dataset2} and \ref{tab:dataset_esp}.
 Spanish dataset is much larger than the others because this is the only dataset from \cite{dataset_spanish} and the others are from \cite{dataset}.
 All of the datasets are annotated by people and importantly the tweets in the datasets are labelled sentimental values.
 Therefore they can be considered to be trustful and we believe the amount of the datasets are large enough.
+\begin{table}[ht]
+	\caption{Number of each sentient value in dataset of English, French and German}
+	\centering
+	\begin{tabular}{|c|r|r|r|r|} \hline
+	Language & Total annotated & Sentiment value & Agreement $\geq$ 2 & Agreement = 3\\ \hline \hline
+	& & positive & 1,595 & 739 \\ \cline{3-5}
+	& & negative & 998 & 488\\ \cline{3-5}
+	English & 7,200 & neutral & 4,238 & 2,536 \\ \hline
+	& & total & 6,831 & 3,763 \\ \hline
+	& & positive & 341 & 159\\ \cline{3-5}
+	& & negative & 321 & 160\\ \cline{3-5}
+	French & 1,797 & neutral & 814 & 360  \\ \hline
+	& & total & 1,476 & 679 \\ \hline
+	& & positive & 353 & 143\\ \cline{3-5}
+	& & negative & 239 & 95\\ \cline{3-5}
+	German & 1,800 & neutral & 1,096 & 711\\ \hline
+	& & total & 1,688 & 949\\ \hline
+	\end{tabular}
+	\label{tab:dataset2}
+\end{table}
 
+\begin{table}[ht]
+	\caption{Number of each sentient value in dataset of Spanish}
+	\centering
+	\begin{tabular}{|c|r|r|r|r|} \hline
+	{} & Positive & Negative & Neutral & Total (tweets)\\ \hline
+	Spanish & 22,217 & 15,838 & 1,302 & 39,357 \\ \hline
+	\end{tabular}
+	\label{tab:dataset_esp}
+\end{table}
+
+
+\begin{comment}
 \begin{table}[ht]
 	\caption{Number of dataset of each language}
 	\centering
@@ -139,16 +239,30 @@ Therefore they can be considered to be trustful and we believe the amount of the
 	\end{tabular}
 	\label{tab:dataset}
 \end{table}
+\end{comment}
 
+The authors of used Amazon's Mechanical Turk \cite{mechanical_turk} so that the datasets are annotated by humans.
+The mechanical Turk is a crowdsourcing online market place for both individuals and businesses.
+They hired 3 annotators and they ensured that the annotated labels in the datasets were agreed by more than one annotator.
+Table \ref{tab:dataset2} shows the numbers of tweets for each sentiment value whose label two or more and all three annotators agreed on.
+%There are four kinds of sentiment values in the datasets, ``positive", ``negative", ``neutral"and ``n/a".
+%However, we do not use n/a category because it is not sure that we should take the ``n/a" label as neutral.
+
+
+The Spanish tweet corpus contains over 68,000 Spanish tweets written by about 150 well-known personalities and celebrities of the world of politics, economy and so on, between November 2011 and March 2012.
+Each tweets is tagged with its polarity, which is one of six labels: strong positive (P+), positive (P), neutral (NEU), negative (N), strong negative (N+) and no sentiment tag (NONE).
+To keep a consistency with the other datasets, we classify the dataset into three labels, which are positive, negative and neutral as same as the others.
+%We do not consider intensity of polarity.
+Thus we replace strong positive (P+) tag with positive (P) and strong negative (N+) tag with negative (N).
+We do not use NONE tag because it is not sure that we should take the ``n/a" label as neutral.
+As a result there are way less neutral tweets than the others in the dataset as Table \ref{tab:dataset_esp} shows. 
 
 \section{Implementation of Classifiers}
-Classifiers.
-implement by scikit-learn API in Python 2.7.12
-
-We employ three kinds of classifiers in this paper.
+We employ three kinds of classifiers in this thesis.
+%As we explained in Section \ref{sec:multi_class_clf}
 Originally SVM is a binary classification method but it can be used for multi-class classification as well.
-There are two ways for multi-class classification SVM, one versus one and one versus all.
-One versus one compares two classes of N classes and constructs a hyperplane while one versus all compares one of N classes and the others.
+We two type of multi-class classification SVM, one versus one and one versus all.
+One versus one compares two classes of $N$ classes and constructs a hyperplane while one versus all compares one of $N$ classes and the others.
 Random forest is an ensemble learning method that samples random data and constructs decision trees.
 It classifies based on the results of the multiple decision trees. 
 We apply the API of scikit-learn \cite{scikit} to build these classifiers in Python 2.7.12.
