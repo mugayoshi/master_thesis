@@ -1,7 +1,63 @@
 \chapter{Discussion}
-Discussion
+In this chapter we discuss about the results shown in Section \ref{sec:result}.
 \section{Classification Result}
-\section{Timeline Graph} \label{sec:discussion}
+We discuss about the classification results by each language in this section and summarise for all of the languages in the end.
+\subsection{English}
+Apparently in all of the cases more tweets are labelled as neutral than the others.
+%Besides tweets that are classified as neutral are more than half of the whole.
+The minimum percentage of neutral tweets, 49.59 \%, is the result of San Francisco by One vs. One SVM classifier (Table \ref{tab:result_sf_en}).
+Except this case, more than half of the all of the tweets consist of tweets classified as neutral in every case.
+And the maximum of neutral label, 89.30 \%, is the result of Buenos Aires by Random Forest classifier (Table \ref{tab:result_buenosaires_en}).
+The minimum percent of both positive and negative is also this casei, 6.85 \%.
+The maximum percentage of positive is London One vs. One SVM, 23.66 \% (Table \ref{tab:result_london_en}) and the maximum of negative is San Francisco One vs. One SVM, 26.92 \%.
 
-\section{Chi Square Test}
+
+For most of the cities there are more positive tweets than negative.
+The exceptions are London One vs. All SVM, all case of New York, Quebec One vs. All SVM and all case of San Francisco.
+Interestingly both of the two cities that have more negative tweets than positive in all case are in the same country, the U.S.
+Also, San Francisco One vs. One SVM (26.92 \%) and New York One vs. One SVM (26.90 \%) are the two highest percentage of negative label.
+According to these results, it seemed more users tweeted negative sentences both in the two cities than other cities.
+%We collected tweets after presidential election in November 2016 and .
+\subsection{French}
+more negative tweets ?
+
+difference between cities
+\subsection{German}
+there are more neutral tweets than other languages.
+
+difference between cities
+\subsection{Spanish}
+almost no neutral tweets.
+
+difference between cities
+
+\subsection{Overall}\label{sec:discussion_overall}
+We can point out clearly Random Forest classifier tends to choose neutral more than SVM classifiers except Spanish.
+This is applied to all of the results.
+One of the reason for this is that there are more neutral tweets than others in the training dataset.
+As Table \ref{tab:dataset2} shows, the English data labelled as positive, negative and neutral with agreement by more than two people are 1,595, 998 and 4,238 respectively for instance.
+
+We added extra data to the training dataset to prepare other training dataset for English, French and German.
+Similar to \cite{dataset}, we added data labelled based on emoticons (positive and negative only).
+For example we labelled a tweet that contains one of smile emoticons as positive and vice versa for negative emoticons, such as :(, :/ and so on.
+As for Spanish, we eliminated positive and negative data from the Spanish dataset to adjust the size of each label. 
+
+It turned out that the results of the modified training dataset were different from the original.
+We found out that One vs. One SVM classifier trained on English data with more positive tweets labels tweets as positive more often than the original training dataset. 
+Also it figured out that even Random Forest classifier trained on the modified Spanish data with less positive and negative tweets choose neutral much more often.
+Thus, the classification result depends on training dataset, especially how many data of each label exist.
+
+There are two reasons that we decided not to apply the modified training dataset.
+At first it was not sure how common to use emoticons on Twitter.
+So, we considered that it was possible that expressions that contain those emoticons represented only a part of the subjective languages on Twitter.
+We asked some people who speaks one of the four languages to help this thesis and one of them who is a native Spanish speaker said the tweets of the modified Spanish training dataset was less correct than the original. 
+This happened not only for Spanish but other languages.
+Therefore we chose to use only the dataset from \cite{dataset} and \cite{dataset_spanish} without any modification.
+%Barcelona 04 Nov 
+
+
+
+%\section{Timeline Graph} \label{sec:discussion}
+
+\section{Result of Chi Square Test}
 
