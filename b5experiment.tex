@@ -1,8 +1,8 @@
 \chapter{Experiment and Result}
 In this chapter, we describe experiment of sentiment analysis across different cities and show the results.
 \section{Preparation for Experiment}
-Before the experiment of sentiment analysis across cities, we measure F1 scores of each classifier in the four languages to confirm whether the classifiers built with the given dataset work well enough.
-The dataset is divided to 80 \% training data and 20 \% test data.
+Before the experiment of sentiment analysis across cities, we measured F1 scores of each classifier in the four languages to confirm whether the classifiers built with the given dataset work well enough.
+The dataset was divided to 80 \% training data and 20 \% test data.
 Table \ref{tab:f1score} shows F1 scores of the classifiers in each language.
 As these scores show, we believe these classifiers work well enough to do experiment of sentiment analysis by city.
 
@@ -23,18 +23,18 @@ As these scores show, we believe these classifiers work well enough to do experi
 
 \section{Experiment}
 
-We choose 12 cities that have a large population, mostly capitals in fact, because it is likely to retrieve many tweets from such cities.
+We chose 12 cities that have a large population, mostly capitals in fact, because it is likely to retrieve many tweets from such cities.
 %Another reason is that the more data we get, the more precise result we can reach.
-We try to pick cities from as many countries as possible.
+We tried to pick cities from as many countries as possible.
 One of the four languages has to be spoken as official language in the chosen cities.
-If possible we choose two cities from the same country. (e.g. New York and San Francisco)
+If possible we chose two cities from the same country. (e.g. New York and San Francisco)
 %For every city, we search almost all of the districts in every city to prepare the place ID list.
 %When preparing place ID list of the cities, 
 
 We managed to retrieve about a million tweets in total from the beginning of November to 16 January 2017 with a script that uses tweepy, explained in Section \ref{sec:retrieving}.
 During this period, we searched and retrieved tweets from the 12 cities in the four languages by specifying the language parameter in the Twitter search API.
 In Twitter API tweets for searching via the API are available only for a week.
-Thus we retrieve tweets every week during the days.
+Thus we retrieved tweets every week during the days.
 In Table \ref{tab:cities} the 12 cities are listed with the numbers of the retrieved tweets.
 
 %! these numbers should be updated !
@@ -68,18 +68,19 @@ In Table \ref{tab:cities} the 12 cities are listed with the numbers of the retri
 \end{table}
 
 After preparing retrieved tweet data for classification as explained in Section \ref{sec:overview}, the three classifiers trained with each language dataset put sentiment values to the retrieved tweets.
-We implement a Python script that labels tweets by the classifiers.
+We implemented a Python script that labels tweets by the classifiers.
 %During classification, the parameters of the classifiers are optimised with cross validation, which uses the APIs of scikit-learn \cite{scikit}.
 %maybe explanation of parameter setting of cross validation ?
 A tweet has to be labelled as one of the sentiment values, positive, negative or neutral.
 %The classification is done by cities and languages.
 
-\section{Result}
+\section{Result}\label{sec:result}
 \subsection{Classification Result}
 In this subsection we show results of three classifiers of each city.
 The numbers in parentheses represent percentage of each sentiment value
+
 \subsubsection{English}
-Table \ref{tab:result_barcelona_en}, \ref{tab:result_berlin_en}, \ref{tab:result_buenosaires_en}, \ref{tab:result_hamburg_en},\ref{tab:result_london_en},\ref{tab:result_madrid_en},\ref{tab:result_newyork_en},\ref{tab:result_quebec_en},\ref{tab:result_sf_en},\ref{tab:result_vienna_en} are results of English tweets.
+Table \ref{tab:result_barcelona_en}, \ref{tab:result_berlin_en}, \ref{tab:result_buenosaires_en}, \ref{tab:result_hamburg_en}, \ref{tab:result_london_en}, \ref{tab:result_madrid_en}, \ref{tab:result_newyork_en}, \ref{tab:result_paris_en}, \ref{tab:result_quebec_en}, \ref{tab:result_sf_en}, \ref{tab:result_vienna_en} are results of English tweets.
 \begin{table}[ht]
 	\caption{Classification Result of English tweets from Barcelona}
 	\begin{tabular}{|l|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
@@ -92,6 +93,18 @@ Table \ref{tab:result_barcelona_en}, \ref{tab:result_berlin_en}, \ref{tab:result
 \end{table}
 
 \begin{table}[ht]
+	\caption{Classification Result of English tweets from Berlin}
+	\begin{tabular}{|l|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
+	Classifiers & Positive & Negative & Neutral & Total (tweets)\\ \hline
+One vs. One SVM & 4,689 (17.54 \%) & 4,137 (15.48 \%)  & 17,904 (66.98 \%)& 26,730 \\ \hline
+One vs. All SVM & 4,131 (15.45 \%) & 3,845 (14.38 \%) & 18,754 (70.16 \%) & 26,730 \\ \hline
+Random Forest   & 2,710 (10.14 \%) & 1,428 (5.34 \%) & 22,592 (84.52 \%) & 26,730 \\ \hline
+	\end{tabular}
+	\label{tab:result_berlin_en}
+\end{table}
+
+
+\begin{table}[ht]
 	\caption{Classification Result of English tweets from Buenos Aires}
 	\begin{tabular}{|l|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
 	Classifiers & Positive & Negative & Neutral & Total (tweets)\\ \hline
@@ -102,16 +115,6 @@ Random Forest   & 3,181 (6.85 \%) & 1,790 (3.85 \%) & 41,481 (89.30 \%) & 46,452
 	\label{tab:result_buenosaires_en}
 \end{table}
 
-\begin{table}[ht]
-	\caption{Classification Result of English tweets from Berlin}
-	\begin{tabular}{|l|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
-	Classifiers & Positive & Negative & Neutral & Total (tweets)\\ \hline
-One vs. One SVM & 4,689 (17.54 \%) & 4,137 (15.48 \%)  & 17,904 (66.98 \%)& 26,730 \\ \hline
-One vs. All SVM & 4,131 (15.45 \%) & 3,845 (14.38 \%) & 18,754 (70.16 \%) & 26,730 \\ \hline
-Random Forest   & 2,710 (10.14 \%) & 1,428 (5.34 \%) & 22,592 (84.52 \%) & 26,730 \\ \hline
-	\end{tabular}
-	\label{tab:result_berlin_en}
-\end{table}
 
 
 \begin{table}[ht]
@@ -250,6 +253,11 @@ Random Forest   & 16,392 (8.73 \%)& 35,098 (18.71 \%)& 136,181 (72.56 \%)& 187,6
 	\label{tab:result_quebec_fr}
 \end{table}
 
+\begin{comment}
+London
+N.Y or San Francisco
+
+\end{comment}
 
 \begin{table}[ht]
 	\caption{Classification Result of French tweets from Lille}
@@ -303,6 +311,11 @@ Random Forest   & 581 (4.36 \%) & 148(1.11 \%)  & 12,596 (94.53 \%) & 13,325\\ \
 	\label{tab:result_vienna_de}
 \end{table}
 
+\begin{comment}
+London
+N.Y or San Francisco
+
+\end{comment}
 
 \clearpage
 \subsubsection{Spanish}
@@ -341,19 +354,25 @@ Random Forest   & 42,777 (88.16 \%)& 5,744 (11.84 \%) & 0 (0.00 \%)  & 48,521 \\
 	\label{tab:result_madrid_es}
 \end{table}
 
+\begin{comment}
+London
+N.Y or San Francisco
+
+\end{comment}
+
 \subsection{Result of Chi Square Test}
-For evaluation we employ chi square test of independence in each language to see if the distributions of sentiment values of two cities are independent or not. 
+For evaluation we employed chi square test of independence in each language to see if the distributions of sentiment values of two cities are independent or not. 
 Apparently different things happen in each city.
 Even though people in the two cities speak the same language, it is assumed that the distributions of sentiment values ought not to be independent of location.  
 If it turns out that they are not independent of location in many cases, this validates the sentiment analysis proposed in this thesis.
-The reason we decide to use this test is that the output belongs to categorical data in statistics.
+The reason we decided to use this test is that the output belongs to categorical data in statistics.
 The output consists of a tweet and its sentiment value labelled by the classifier.
 Hence it is only allowed to count the observed frequency.
-We consider a cross-tabulation table of the observed frequency of sentiment values of two cities.
+We consider a cross-tabulation table of the observed frequency of sentiment values of two cities for chi square test.
 An example of such cross-tabulation table is Table \ref{tab:result_london_ny}.
 As it shows, the results of SVM (One vs. One and One vs. All) are similar but they are both different from the one of Random Forest.
 This happens to almost all of the results whatever language it is as we showed above.
-Because the results between the classifiers are different, we decide to do chi square test on all of the results.
+Because the results between the classifiers are different, we decided to do chi square test on all of the results.
 
 \begin{table}[ht]
 	\caption{Classification results of New York and London}
@@ -372,7 +391,7 @@ New York & 23,337 (21.11 \%)& 29,186 (26.40 \%)& 58,050 (52.50 \%)& 110,573 \\ \
 
 London & 47,131 (10.37 \%)  & 37,018 (8.14 \%)  & 370,562 (81.49 \%) & 454,711 \\ \hline
 
-London  & 11,838 (10.71 \%)& 13,874 (12.55 \%)& 84,861 (76.75 \%)& 110,573 \\ \hline
+New York  & 11,838 (10.71 \%)& 13,874 (12.55 \%)& 84,861 (76.75 \%)& 110,573 \\ \hline
 	\end{tabular}
 	\label{tab:result_london_ny}
 	\\(The numbers in parentheses represent percentage of each sentiment value)
@@ -380,11 +399,28 @@ London  & 11,838 (10.71 \%)& 13,874 (12.55 \%)& 84,861 (76.75 \%)& 110,573 \\ \h
 
 The null hypothesis of the chi square test is ``If it is the same language, the distributions of sentiment values of the two different cities are independent of location."
 The $\chi^2$ statistic is calculated using the expected frequency and the values in the cross-tabulation.
-Since there are two rows and three columns in the tabulation, the degree of freedom is 2.
+Expected frequency ($E_{ij}$)is calculated with equation \ref{eq:exp_freq}.
+\begin{equation}
+E_{ij} = \frac{\sum_{l} O_{il} \cdot \sum_{m} O_{mj}}{\sum_{i} \sum_{j} O_{ij}}
+\label{eq:exp_freq}
+\end{equation}
+And $\chi^2$ statistic is computed as 
+\begin{equation}
+\chi^2 = \sum_{i} \sum_{j} \frac{(O_{ij} - E_{ij})^2}{E_{ij}}
+\end{equation}
+Since there are two rows and three columns in the tabulation, the degree of freedom is 2 ($(2 - 1 ) \cdot  (3 - 1) = 2$).
 If the $\chi^2$ statistic is greater than 5.991, which is the appropriate critical value at a 5 \% level of significance when degree of freedom is 2, the null hypothesis is rejected.
 And it is concluded that the distributions are not independent of location. 
-We show results of $\chi^2$ statistics of tweets in each language below in Table \ref{tab:result_chi_en}.
 
+Table \ref{tab:result_chi_en}, \ref{tab:result_chi_fr}, \ref{tab:result_chi_de}, \ref{tab:result_chi_es} show the $\chi^2$ statistics of English, French, German and Spanish tweets of each combination of the cities respectively.
+%We also compare English tweets for seven combinations, Paris \& Quebec, Berlin \& Hamburg and Barcelona \& Madrid to see if the result of chi square test is different from the one of the official language of each city.
+%For instance, if it is Barcelona we compare its result both in English and Spanish.
+In these tables, the numbers coloured red are smaller than 5.991.
+There are XX cases out of YY where such condition is met.
+%In these XX cases, the null hypothesis is accepted and in the other cases it is rejected.
+%These results imply that except the XX cases location has something to do with emotional reaction among the two cities on Twitter when it is the same language. 
+%As for Paris \&Quebec, Berlin \& Hamburg and Barcelona \& Madrid, the results are consistent between the two languages in the 16 cases out of 18.
+%Another way of saying, the results are same in the both languages except for the case of Barcelona \& Madrid.
 
 \begin{table}[ht]
 	\caption{$\chi^2$ statistics of English tweets}
@@ -392,9 +428,77 @@ We show results of $\chi^2$ statistics of tweets in each language below in Table
 	\begin{tabular}{|l|r|r|r|r|} \hline
 	{}&One vs. One SVM &One vs. All SVM&Random Forest\\ \hline
 	London / New York & 972.147 & 1016.564 & 2176.945 \\ \hline
+	London / San Francisco & 1874.997 & 2215.218 & 4031.990 \\ \hline
+	New York / San Francisco & 9.268 & 16.687 & \textcolor{red}{2.546} \\ \hline
+	Paris / Quebec & 1135.835 & 1040.624 & 402.224 \\ \hline
+	Berlin / Hamburg & 71.674 & 81.045 & 20.860 \\ \hline
+	Berlin / Vienna & 302.720 & 359.948 & 80.490\\ \hline
+	Hamburg / Vienna & 30.195 & 36.876 & 19.382 \\ \hline
+	Barcelona / Buenos Aires & 92.104 & 89.022 & 121.568 \\ \hline
+	Barcelona / Madrid & 18.855 & 13.669 & 11.606 \\ \hline
+	Buenos Aires / Madrid & 187.193 & 182.165 & 157.146 \\ \hline
 	\end{tabular}
 	\label{tab:result_chi_en}
 \end{table}
+
+
+\begin{table}[ht]
+	\caption{$\chi^2$ statistics of French tweets}
+	%\begin{tabular}{|l|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
+	\begin{tabular}{|l|r|r|r|r|} \hline
+	{}&One vs. One SVM &One vs. All SVM&Random Forest\\ \hline
+	Lille / Paris & 24.812 & 30.518 & 114.985 \\ \hline
+	Lille / Quebec & 264.189 & 327.403 & 206.044\\ \hline
+	Paris / Quebec & 337.426  & 461.178 &131.931 \\ \hline
+%	London / New York
+%	Lille / London
+%	Lille / New York
+%	London / Paris
+%	New York / Paris
+%	London / Quebec
+%	New York / Quebec
+	\end{tabular}
+	\label{tab:result_chi_fr}
+\end{table}
+
+\begin{table}[ht]
+	\caption{$\chi^2$ statistics of German tweets}
+	%\begin{tabular}{|l|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
+	\begin{tabular}{|l|r|r|r|r|} \hline
+	{}&One vs. One SVM &One vs. All SVM&Random Forest\\ \hline
+	Berlin / Hamburg & 410.727 & 427.276 & 9.490 \\ \hline
+	Berlin / Vienna & 277.406 & 249.370 & 19.202\\ \hline
+	Hamburg / Vienna &\textcolor{red}{2.203} &\textcolor{red}{0.110}  &\textcolor{red}{4.110} \\ \hline
+%	London / New York
+%	Berlin / London
+%	Berlin / New York
+%	London / Hamburg
+%	New York / Hamburg
+%	London / Vienna
+%	New York / Vienna
+	\end{tabular}
+	\label{tab:result_chi_de}
+\end{table}
+
+\begin{table}[ht]
+	\caption{$\chi^2$ statistics of Spanish tweets}
+	%\begin{tabular}{|l|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
+	\begin{tabular}{|l|r|r|r|r|} \hline
+	{}&One vs. One SVM &One vs. All SVM&Random Forest\\ \hline
+	Barcelona / Buenos Aires& 43.856& 52.044 & 32.829 \\ \hline
+	Barcelona / Madrid &\textcolor{red}{2.916} &\textcolor{red}{2.274}  & \textcolor{red}{0.001}\\ \hline
+	Buenos Aires / Madrid & 32.553& 48.349& 43.402 \\ \hline
+%	London / New York
+%	Barcelona/ London
+%	Barcelona / New York
+%	London / Buenos Aires
+%	New York / Buenos Aires
+%	London / Madrid
+%	New York / Madrid
+	\end{tabular}
+	\label{tab:result_chi_es}
+\end{table}
+
 
 
 %\subsection{Timeline graph}
