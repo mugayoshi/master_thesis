@@ -1,4 +1,49 @@
-\chapter{Conclusion}
-Conclusion
+\chapter{Conclusion and Future Work}
+In this chapter we conclude the thesis and describe future work.
+%Conclusion
 \section{Conclusion}
-section 1
+We proposed multi-language sentiment analysis on Twitter across different cities in the thesis.
+Searching tweets by Twitter place ID via Twitter API, we managed to retrieve about a million tweets by city in four languages, English, French, German and Spanish.
+We employed chi square test as an evaluation to validate our system.
+For English, French and German tweets, the results show the distributions of sentiment values  are not independent of location between two cities in most of the cases.
+And more than half of the results of Spanish tweets show that the distributions are independent of location. 
+%Therefore emotional reaction on Twitter varies depending on cities.
+But as a whole, the null hypothesis is rejected in 24 cases out of 120 and 17 cases of the 24 are from the result of Spanish tweets.
+This is acceptable outcome in terms of a cultural aspect
+Therefore it approves the validity of this sentiment analysis proposed in this thesis.
+
+
+\section{Future Work}
+\subsection{Feature Vector}
+One of the things to be fixed is changing the feature vector.
+In this thesis we use BOW as feature vector but distributed representation is also an alternative solution because we can relate words or expressions that look different in BOW using distributed representation.
+This works better on some European languages that have many kinds of conjugation such as Spanish and French because conjugated words are considered different in BOW. 
+For instance, a verb has more than ten types of conjugation in Spanish and even adjectives change depending on the subjects or nouns in these two languages.
+The meaning of an adjective, as an example, should be considered same or similar when it comes to sentiment analysis.
+So, if there are tweets with same words that have different forms, they can be transformed to similar vector representation using distributed representation.
+And then they are more likely to be labelled same sentiment value than BOW.
+
+There are two possible approaches for an alternative feature vector.
+One is distributed representation specifically for Twitter.
+There are two researches that focus on distributed representation specifically for Twitter analysis \cite{tweet2vec1} \cite{tweet2vec2}.
+We also can use other distributed representations that do not focus on tweets and are used popularly such as word2vec and doc2vec.
+%One of the most common distributed representations is word2vec.
+Word2vec looks at each word and converts it to a vector representation while doc2vec is a model that are built based on word2vec and it can handle phrase, sentence, paragraph and document.
+And all of the models listed above is available to any language, even Asian languages for example.
+Therefore we can apply them for multi-language sentiment analysis.
+
+\subsection{Improving Training Dataset}
+Second, we need to have better dataset so that classifier trained on them classify tweets more accurately.
+In the experiment described in Section \ref{sec:experiment}, we did not modify the training dataset.
+Because of this, there is imbalance especially in the Spanish training dataset, in which there are much less tweets labelled neutral than positive and negative.
+As we mentioned about this in Section \ref{sec:clf_result}, the modification of training dataset leads to different classification result significantly.
+
+%Adjusting the amount of data of each label does not cause improvement all the time.
+
+
+\subsection{Analysis by Topic}
+We just take a look at the whole of the tweets in this thesis, but for more precise analysis it is better to choose tweets by topic and compare them between cities.
+A simple way is to extract tweets by hashtags.
+Much more tweets are required to achieve this because on Twitter a tweet does not often contain hashtags.
+Hong et al. investigated how often users put hashtags and figured out that 11 \% of the tweets they retrieved in 10 languages were posted with hashtags \cite{hong}.
+%In this paper, we did not manage to do this because of time period.
