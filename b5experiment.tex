@@ -446,15 +446,15 @@ N.Y or San Francisco
 
 \end{comment}
 
-\subsection{Check by People}
-We show some of them that are labelled both correctly and wrongly.
-Labelled correctly means all of the classifiers put the same sentiment value as a annotator and if one or none of them does, we define a tweet is labelled wrongly.
+\subsection{Review by Annotators}
+We show some of tweets that are labelled both correctly and wrongly.
+We define a tweet is labelled correctly if all of the classifiers put the same sentiment value as an annotator and if one or none of them does, we define a tweet is labelled wrongly.
 \subsubsection{English}
 We looked at 500 English tweets from London and labelled them ourselves.
-Table \ref{tab:wrong_tweets_en} \ref{tab:correct_tweets_en} are a part of them.
+Table \ref{tab:correct_tweets_en}, \ref{tab:wrong_tweets_en} show some of the tweets that are labelled correctly and wrongly.
 
 \begin{table}[ht]
-	\caption{A part of result of tweets from London labelled correctly}
+	\caption{A part of tweets from London labelled correctly}
 	%\scalebox{0.7}[0.8]{
 	\begin{tabular}{|p{5cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
 	Tweet & One vs. One SVM &One vs. All SVM &Random Forest & Annotator\\ \hline
@@ -479,7 +479,7 @@ Table \ref{tab:wrong_tweets_en} \ref{tab:correct_tweets_en} are a part of them.
 
 
 \begin{table}[ht]
-	\caption{A part of result of tweets from London labelled wrongly}
+	\caption{A part of tweets from London labelled wrongly}
 	%\scalebox{0.7}[0.8]{
 	\begin{tabular}{|p{5cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
 	Tweet & One vs. One SVM &One vs. All SVM &Random Forest & Annotator\\ \hline
@@ -503,15 +503,26 @@ Table \ref{tab:wrong_tweets_en} \ref{tab:correct_tweets_en} are a part of them.
 \clearpage
 
 \subsubsection{French}
-We asked a person who is fluent of French to put labels on tweets from Paris.
-Table 
+We asked a person who is fluent of French to put labels about 150 tweets from Paris.
+Table \ref{tab:correct_tweets_fr}, \ref{tab:wrong_tweets_fr}  show some of the tweets that are labelled correctly and wrongly.
 \begin{table}[ht]
-	\caption{a part of result of tweets from london labelled correctly}
-	%\scalebox{0.7}[0.8]{
+	\caption{A part of tweets from Paris labelled correctly}
 	\begin{tabular}{|p{5cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
 	Tweet & One vs. One SVM &One vs. All SVM &Random Forest & Annotator\\ \hline
+
 	00h48? Bonne nuit les enfants &positive & positive &positive & positive \\ \hline
 	15 jours avant mes r\'esultatsLe temps passe vraiment tr\`es/trop lentement & negative& negative& negative& negative \\ \hline
+	150 \`a 200 journalistes accr\'edites pour \#MacronPr\'esident & neutral & neutral& neutral& neutral\\ \hline
+	1 de plus ou 1 de moins & neutral& neutral& neutral& neutral \\ \hline
+	20132014 \c c\'et\'e un tournant incroyable dans ma vie &positive&positive&positive&positive \\ \hline
+
+	20:22 enfin rentr\'e &positive&positive&positive&positive \\ \hline
+	21h30 je viens de rentrer chez moi? c'est une vie ca? &negative &negative&negative&negative\\ \hline
+	2jours que j'ai pas manger. Jsai pas cqui m'arrive &negative &negative&negative&negative\\ \hline
+	3 ans ok mais plus jamais \c ca &negative &negative&negative&negative\\ \hline
+	2013 les rencontres bonnes et mauvaises qui ont crois\'e mon chemin &neutral&neutral&neutral&neutral\\ \hline
+
+
 	\end{tabular}
 	%}
 	\label{tab:correct_tweets_fr}
@@ -519,14 +530,22 @@ Table
 
 
 \begin{table}[ht]
-	\caption{a part of result of tweets from london labelled wrongly}
-	%\scalebox{0.7}[0.8]{
+	\caption{A part of tweets from Paris labelled wrongly}
 	\begin{tabular}{|p{5cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
 	Tweet & One vs. One SVM &One vs. All SVM &Random Forest & Annotator\\ \hline
+
 	0/20 \c ca passe & neutral & neutral & neutral & positive \\ \hline
 	03 : 32 grosse salope d'arabe c'est tt ce qu'il reste sur ma tl \#off & positive & positive & neutral & negative \\ \hline
 	13j et le nouvel album des Stones sort & neutral& neutral& neutral & positive \\ \hline
-	%	``absolutely LOVED Fantastic Beasts" & positive & positive & neutral & positive \\ \hline
+	14:15 le mec sa fait 15 minute il arrive pas \`a sortir du parking gros fils de pute &neutral & positive & negative & negative \\ \hline 
+	1 de perdu 10 de retrouve & neutral& neutral& neutral & positive \\ \hline 
+
+	1 d meilleure video restera ONGUE MANUCUR & neutral& neutral& neutral & positive \\ \hline
+	1h30 au tel ptin c'est pass\'e salement vite & positive & positive & neutral & negative \\ \hline
+	1 journ\'ee sans le voir ni lui parler c'est la morta& neutral& neutral& neutral & negative \\ \hline
+	24h que ma quitter c'est d\'ej\`a l'enfer&positive&positive & neutral&negative\\ \hline
+	2eme plus gros bâche de ma vie&positive &positive &negative&neutral \\ \hline
+
 	\end{tabular}
 	%}
 	\label{tab:wrong_tweets_fr}
@@ -534,8 +553,104 @@ Table
 
 \clearpage
 \subsubsection{German}
-\subsubsection{Spanish}
+We asked two native German speakers to put labels about 300 tweets in total and the tweets are from Hamburg.
+Table \ref{tab:correct_tweets_de}, \ref{tab:wrong_tweets_de}  show some of the tweets that are labelled correctly and wrongly.
+\begin{table}[ht]
+	\caption{A part of tweets from Hamburg labelled correctly}
+	\begin{tabular}{|p{5cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
+	Tweet & One vs. One SVM &One vs. All SVM &Random Forest & Annotator\\ \hline
 
+	Ab nach Hause. &positive&positive&positive&positive\\ \hline
+	Danke euer Lehmi \&lt&positive&positive&positive&positive\\ \hline
+	Der Moment wenn du endlich Pause hast &positive&positive&positive&positive\\ \hline
+	Echt nicht mein (Mon)tag. &negative&negative&negative&negative\\ \hline
+	Endlich Home! (heart emoji) Ist das kalt geworden &positive&positive&positive&positive\\ \hline
+
+	Endlich kann ich im Spiegel gucken: der Bart w\"achst &positive&positive&positive&positive\\ \hline
+	Erstaunlich fr\"uh Feierabend. &positive&positive&positive&positive\\ \hline
+	es scheint die Sonne &positive&positive&positive&positive\\ \hline
+	Feierabend und ab ans Meer. &positive&positive&positive&positive\\ \hline
+	einfach ganz laut hhh schreihen&neutral &neutral&neutral&neutral\\ \hline
+
+	
+	
+	\end{tabular}
+	%}
+	\label{tab:correct_tweets_de}
+\end{table}
+
+
+\begin{table}[ht]
+	\caption{a part of result of tweets from london labelled wrongly}
+	\begin{tabular}{|p{5cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
+	Tweet & One vs. One SVM &One vs. All SVM &Random Forest & Annotator\\ \hline
+
+	10k geschafft &neutral &neutral&neutral&positive\\ \hline
+	Aber nun erstmal Kaffee.l\"auft:&neutral&neutral&neutral&positive\\ \hline
+	Alarm der Notausgangst\"ur geht los. Kollektives genervtes Aufst\"ohnen im Raum. &neutral&neutral&neutral&negative \\ \hline
+	Am Besten gleich die Moschee sprengen und das restliche IslamistenPack ausweisen \#Tatort &neutral&neutral&neutral&negative\\ \hline
+	Am Freitag mal eine Stunde früher aufstehen &neutral&negative&neutral&negative\\ \hline
+	
+	A Powerbank zu Hause vergessen. *versucht den Akku wiederzubeleben *&positive&positive&positive&neutral \\ \hline
+	Armin Vehs Sakko ist nicht fernsehtauglich.&neutral&neutral&neutral&negative\\ \hline
+	Aufr\"aumflash! In Deckung! Alles muss raus!&neutral&neutral&neutral&positive \\ \hline
+	Bald hat mich der HSV so weit mit dem ganzen KühneSchei{\ss}&neutral&neutral&neutral&negative\\ \hline
+	Bei manchen denkste dir auch&neutral&neutral&neutral&negative \\ \hline
+	\end{tabular}
+	%}
+	\label{tab:wrong_tweets_de}
+\end{table}
+
+\clearpage
+
+\subsubsection{Spanish}
+We asked a native Spanish speaker to put labels about 300 tweets from Barcelona.
+Table \ref{tab:correct_tweets_es}, \ref{tab:wrong_tweets_es}  show some of the tweets that are labelled correctly and wrongly.
+\begin{table}[ht]
+	\caption{A part of tweets from Barcelona labelled correctly}
+	\begin{tabular}{|p{5cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
+	Tweet & One vs. One SVM &One vs. All SVM &Random Forest & Annotator\\ \hline
+
+	Amo las caras que pone Ron jajja&positive&positive&positive&positive \\ \hline
+	Aqu\'i esperando a la muerte&negative &negative &negative &negative \\ \hline
+	Argentina juega con fuego. No creo que termine con 11. Es un desastre el equipo. No juegan a nada en ninguna de sus l\'ineas. &negative&negative&negative&negative\\ \hline
+	Arriesgarse es la unica opcion para ganar.&positive&positive&positive&positive\\ \hline
+	A todas mis haters! Estoy mas diosa y bitch que nunca.&positive&positive&positive&positive\\ \hline
+
+	A una choni se le acaba de caer el mechero por las alcantarillas y creo k se quiere suicidar.&negative&negative&negative&negative\\ \hline
+	Ay de verdad que ganas de pary&positive&positive&positive&positive\\ \hline
+	besos días besos d\'ias&positive&positive&positive&positive\\ \hline
+	Cazar un pok\'emon mientras meas \#achieved&positive&positive&positive&positive\\ \hline
+	Chenoa con gafas est\'a demasiado guapa \#TCMS6&positive&positive&positive&positive\\ \hline
+
+	\end{tabular}
+	%}
+	\label{tab:correct_tweets_es}
+\end{table}
+
+
+\begin{table}[ht]
+	\caption{a part of result of tweets from Barcelona labelled wrongly}
+	\begin{tabular}{|p{5cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
+	Tweet & One vs. One SVM &One vs. All SVM &Random Forest & Annotator\\ \hline
+
+	A mi si me marca Kolo me da igual haber metido 3 o 6 goles a 1.&positive &negative &positive &neutral \\ \hline
+	Ampl\'io el plano y pillo el argumento &negative &negative &positive & neutral \\ \hline
+	As\'i se apuntar\'a q el crea empleo&negative&negative &positive&neutral \\ \hline
+	Anano me gustas NAAADAAA! Y tu Isabel&positive&positive&positive&negative\\ \hline
+	a ver si me muero de una puta vez pero de verdad xd&positive&positive&positive&negative\\ \hline
+	
+	Barcelona y t\'u.&negative&negative&positive&neutral\\ \hline
+	Bebida sin calorias&negative&negative&positive&neutral\\ \hline 
+	Bueno. Ya llevo una hora de trabajo. Solo me quedan 11 más &positive&positive&positive &negative \\ \hline
+	Censuresta horas de la ma\~nana? Porque \#ghdirecto&positive&positive&positive &negative \\ \hline
+	Chicas que respiran adios autocontrol&positive&positive&positive&neutral\\ \hline
+	\end{tabular}
+	%}
+	\label{tab:wrong_tweets_es}
+\end{table}
+
+\clearpage
 
 
 \subsection{Result of Chi Square Test}
