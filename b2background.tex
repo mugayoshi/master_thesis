@@ -1,62 +1,71 @@
 \chapter{Prior Knowledge}
-In this chapter as prior knowledge we explain 3 things to understand this thesis.
+In this chapter we explain two things as prior knowledge to understand this thesis more precisely .
 
 \section{Sentiment Analysis} \label{sec:sentimen_analysis}
 Sentiment analysis usually means the automatic determination of subjectivity (whether a text is objective or subjective), polarity (positive, negative or neutral) or strength (strongly or weakly positive/negative).
-Figure \ref{fig:sentiment_analysis} shows an example of sentiment analysis.
+Figure \ref{fig:sentiment_analysis} shows a example of workflow of sentiment analysis.
 In this case the system takes a sentence as input and determines if it is positive, negative or neutral. 
-Analysing thousands of tweets figures out a valuable opinion.
 In fact sentiment analysis is applied to many areas and one of them is movie review \cite{movie_review}.
-An It company in South Africa actually predicted the result of the U.S presidential election in November 2016 by analysing tweets \cite{us_election}.
+An IT company in South Africa actually predicted the result of the U.S presidential election in November 2016 by analysing tweets \cite{us_election}.
+So, analysis for thousands or millions of tweets can figure out a valuable opinion although each tweet contributes very little to the whole.
 \begin{figure}
 	\centering
 	%\scalebox{0.8}[0.9]{
 	\includegraphics[width=10cm]{./fig/sentiment_analysis.png}
 	%}
-	\caption{Example of sentiment analysis}
+	\caption{Example of workflow of sentiment analysis}
 	\label{fig:sentiment_analysis}
 \end{figure}
 
 %figure of sentiment analysis 
 
 There are two kinds of approaches to sentiment analysis: a word-based or semantic approach, or a machine learning approach.
-The word-based approach used dictionaries of words tagged with their semantic orientation and calculates sentiment value by aggregating the values of those present in a sentence \cite{Turney}.
-The ML approach uses collections of texts that are known to express a favourable or unfavourable opinion as training data and learns to recognise sentiment based on those examples \cite{Pang}.
+The word-based approach uses dictionaries of words tagged with their semantic orientation and calculates sentiment value by aggregating the values of those present in a sentence \cite{Turney}.
+The machine learning approach uses collections of texts that are known to express a favourable or unfavourable opinion as training data and learns to recognise sentiment based on those examples \cite{Pang}.
 
-An example of the word-based semantic approach is \cite{Brooke}.
-The authors make dictionaries, additionally taking into account  the role of negation, intensifications and so on.
+An example of the word-based semantic approach is proposed by Brooke et al \cite{Brooke}.
+The authors made dictionaries, additionally taking into account  the role of negation, intensifications and so on.
 Each word in the dictionaries is given a semantic orientation value that are ranked by English native speakers and the range of the value is between 5 and -5.
 The numerical values are chosen to reflect both the prior polarity and strength of the word, averaged across likely impressions.
 For example, the word $phenomenal$ is 5, $nicely$ is 2 and $disgust$ is -3.
-They handle the negation by shifting a fixed amount, which is 4 in the research, toward the original value.
+They handled the negation by shifting a fixed amount, which is 4 in the research, toward the original value.
 This means that the negation of a strongly negative word (e.g. $terrible$) becomes neutral or weakly negative ($not$ $terrible$ -5 + 4 = -1 instead of 5).
 And the negation of weakly positive word, such as $nice$, is equally negative ($not$ $nice$ 2 - 4 = -2).
 
-They consider intensification words like $very$.
-Each expression in the intensifier dictionary is associated with a multiplier value.
-If it appears in a sentence, the semantic orientation value of any adjective modified by $very$ is increased by 25 \%, for instance. 
+They considered intensification words like $very$ as well and they constructed a dictionary with intensifier words.
+Each expression in the dictionary is associated with a multiplier value.
+If a word in the dictionary, $very$ for instance, appears in a sentence, the semantic orientation value of any adjective modified by $very$ is increased by 25 \%. 
 There are three other kinds of intensifications: the use of all capital letters, the use of exclamation points and the use of discourse $but$ to indicate more important information.
 
 Although the word-based semantic approach takes many different aspects of a text into account, there are several disadvantages.
-This approach requires precise and deep understanding of the language to make the rules and the resources need to be built from scratch.
-Therefore it is necessary to ask the native speakers to take part in the project to make the dictionary as the annotators.
+This approach requires precise and deep understanding of the language to set the rules and the resources is needed to be constructed from scratch.
+Therefore it is necessary to ask the native speakers to take part in the project as the annotators to construct the dictionary.
 Even if some native speakers of the languages agree to contribute, there is a concern of consistency.
 Especially when in the numerical value approach, it is possible to get different values of some words from the annotators because they give the values based on their own impressions of the words.
 One of them put $nicely$ -1 but other put -2, for instance.
-To make the dictionary, the values need to be adjusted.
+To construct the dictionary, each value in the dictionary is required to be one value not several options.
 %Then with the dictionary, the rule of the language is required to decide how to handle the grammar of the language (e.g. how to see if a sentence has negation).
 
 
 %This approach follows the grammar of the language.
-Contrary to the word-based semantic approach, the machine learning approach requires only the sentences annotated to each polarity and does not need to make the rules of the language.
-The machine learning approach is available if there is enough data to train classifiers.
+Contrary to the dictionary-based semantic approach, the machine learning approach requires only the sentences annotated to each polarity and does not need to make rules of the language.
+This approach is available to perform a sentiment analysis if there is enough data to train classifiers.
 When in a multi-language sentiment analysis, the word-based approach is more difficult than the machine learning approach because of the complexity of making the rules and so on.
-If the feature vector of a machine learning is Bag Of Words (BOW), it can handle grammatically wrong sentences, which are seen on Twitter sometimes .
+One of the advantages for this approach is that it can handle grammatically wrong sentences, which can be seen on Twitter sometimes.
 
+The machine learning approach does not consider the grammar of the language for better or worse.
+Therefore it is possible to make mistakes that are obvious to people.
+A sentence that looks apparently positive sentiment to humans does not have to be labelled as positive because the criteria to determine sentiment values is independent of meaning of words in the language itself.
+Another disadvantage is taking into account negation and intensification.
+As we explained before, it is difficult for the classifiers to recognise the difference between the first and second sentence below unless the training dataset contains these annotated with sentiment labels.
+Even if the dataset contains the two sentences, it does not guarantee that the classifiers classify a sentence with ``similar" meaning such as the third sentence below as same as the first one because it is also probable that the classifiers do not identify a combination of $very$ and $amazing$ as positive. 
 
-The machine learning approach does not consider the grammar of the language.
-Therefore it possibly makes apparent mistakes.
-A sentence that looks positive sentiment to humans apparently does not have to be labelled as positive because the criteria to put the sentiment values is independent of the language itself.
+\begin{enumerate}
+	\item This picture is nice.
+	\item The camera isn't so nice.
+	\item That camera is very amazing.
+\end{enumerate}
+
 %There is no certain that a classifier trained by machine learning labels
 
 
@@ -70,28 +79,52 @@ equations and the explanation
 \end{comment}
 
 \section{Twitter Place ID}\label{sec:placeid}
-The place ID of Twitter API \cite{twitter_api_placeid} makes it possible to search tweets by each location. 
-Named locations of districts of a city around the world are given each place ID in Twitter API.
-For example, the place ID of Twitter head quarter is "07d9cd6afd884001".
-Figure \ref{fig:tweet} shows a part of the screenshot that is displayed when a user tweets somewhere in Tokyo.
-In the figure, there are four options displayed (Chiyoda Tokyo, Tokyo Japan, Japan, and Chiba Kanto Area).
+Place ID in Twitter API \cite{twitter_api_placeid} makes it possible to search tweets by each location. 
+Named locations or districts of a city around the world are given each place ID in Twitter API.
+For example, the place ID of Twitter head quarter is ``07d9cd6afd884001".
+Figure \ref{fig:tweet} shows a part of the screenshot that is displayed when a user tweets somewhere in Tokyo and at Keio Yahami campus in Yokohama City.
+In the figure, four location options in the left figure are Chiyoda Tokyo, Tokyo Japan, Japan, and Chiba Kanto Area.
+And the ones in the right figure are Kohoku district Yokohama, Kanagawa district Yokohama, Kanagawa Japan, Nishi district and Minami district Kawasaki.
 The suggested places are shown based on the place ID where the user is tweeting.
 If a user turns on location service, the user can set one of the suggested areas as location information. 
-Even when users don't turn on GPS service on their phone, these places are shown because they are displayed based on place ID of Twitter API.
+Even when users don't turn on GPS service on their accounts, these places are shown because they are displayed based on place ID of Twitter API and do not require GPS service.
 
-There are three types of place ID.
+There are three types of Twitter place ID.
 One of them represents a named location like the previous example of Twitter head quarter.
 Another represents a whole city (e.g. Tokyo Japan) and the other is district (e.g. Shibuya Tokyo, Japan)
 And each place ID contains an attribute of its own coordinate, latitude and gratitude.
-In contrary, place Id can be searched via the Twitter search API by specifying the coordinate of a place.
+In contrary, place ID can be searched via the Twitter search API by specifying the coordinate of a place.
 
+\begin{figure}[ht]
+	\begin{center}
+		\begin{tabular}{c}
+		
+			\begin{minipage}{0.33\hsize}
+				\begin{center}
+					\includegraphics[width=6cm]{./fig/tweet.png}
+				\end{center}
+			\end{minipage}
 
+			\begin{minipage}{0.33\hsize}
+				\begin{center}
+					\includegraphics[width=6cm]{./fig/yokohama_twitter.png}
+				\end{center}
+			\end{minipage}
+
+		\end{tabular}
+		\caption{Suggested places in Tokyo and Yokohama based on Twitter place ID}
+	\label{fig:tweet}
+	\end{center}
+\end{figure}
+
+\begin{comment}
 \begin{figure}
 	\centering
 	\includegraphics[width=10cm]{./fig/tweet.png}
 	\caption{Suggested places in Tokyo based on Twitter place ID}
 	\label{fig:tweet}
 \end{figure}
+\end{comment}
 
 \begin{comment}
 for the chapter of experiment
