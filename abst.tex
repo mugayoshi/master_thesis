@@ -4,8 +4,39 @@
 \begin{center}
 \LARGE{論文要旨}
 \end{center}
-\vspace*{2.0cm}
-感情分析
+\vspace*{3mm}
+
+\begin{center}
+\LARGE{異なる都市間における複数言語でのSNSの感情分析}
+\end{center}
+
+\vspace{20mm}
+\setlength\parindent{2zw}
+
+感情分析システムとは文のsentiment を判定する分類器である．
+ある文を入力として受け取り，感情分析システムはその分がポジティブ，ネガティブ，ニュートラルかどうかを判別する．
+感情分析システムは大多数の人の意見を解析する目的で映画レビューから世論調査まで様々な用途で用いられている．
+
+2016年6月，イギリスではEUからの離脱を問う国民投票が，そして同年11月にはアメリカ合衆国大統領選挙が行われた．
+この2つの選挙では地域によって国民の意見が大きく異なっていたことが明らかになった．
+このような事例では位置情報が重要な要素である．
+よって，感情分析システムを用いて異なる都市を比較することは言語処理における有意義なタスクだといえる．
+
+本論文では異なる都市間における複数言語でのSNS, 特に Twitterの感情分析を提案する．
+Twitter place ID を用いることで，各都市からのツイートを収集し，機械学習によって学習させた分類器でツイートの感情値（ポジティブ，ネガティブ，ニュートラル）を判定する．
+感情値が人でによって付与されたツイートのコーパスを訓練用データとして用いる．
+本論文では英語，フランス語，ドイツ語，スペイン語の4つの言語のコーパスを用いた
+
+実験では2016年11月から2017年1月16日までツイートの収集を行い，4言語合わせて1,000,000 を超えるツイートを収集した．
+そして，1対1 SVM，1対他 SVM，Random Forest の３つの分類器で収集したツイートを分類させた．
+その結果，英語のツイートでは，アメリカ合衆国の2都市からのツイートの多くはネガティブと判定された．
+また，フランス語のツイートでは全体的に多くのユーザーがネガティブなツイートを発信していたことがわかった．
+%英語の分類器の精度が最も良く，スペイン語の分類器が最も低かった．
+2都市における感情値の分布を比べ，統計学的にその分布が場所によって独立であるかどうかを調べるためにカイ二乗検定を評価として行った．
+120個の事例のうち，96個の事例では2つの都市の感情値分布が場所によって独立ではないという判定になった．
+この結果は文化的な側面として自然なものである．
+よって，この結果により本論文で提案したシステムの有効性を示すことができた．
+
 \newpage
 
 \thispagestyle{empty}
@@ -17,9 +48,28 @@
 \vspace{3mm}
 
 \begin{center}
-\LARGE{Sentiment Analysis}
+\LARGE{Multi-Language Sentiment Analysis of\\SNS across Different Cities}
 \end{center}
 
 \vspace{20mm}
 \setlength\parindent{2zw}
-sentiment analysis
+A sentiment analysis is a classifier that determines sentiment in a sentence.
+Given a sentence as input, it distiguishes if the input means something positive, negative or neutral for instance.
+Sentiment anaysis is used to analyse opinions of people, such as movie reviews, public opinion poll etc.
+
+The E.U referendum in the U.K and the presidential election in the U.S in 2016 showed that people in these two contries had different opinions depending on where they live.
+In these case location information was an important factor.
+Therefore it is a meaningful task to compare between differnt cities using sentiment analysis.
+
+In this thesis, we propose multi-language sentiment analysis of SNS, especially Twitter, across different cities.
+We retrieve tweets in several languages from each city using Twitter place ID and then labell sentiment values to them by classifiers trained by machine learning.
+As training data, we used dataset that contains tweets in English, French, German and Spanish with sentiment labels annotated by people. 
+
+In the experiment, from the beginning of November 2016 to 16 January 2017 we obtained about a million tweets in total and they were clasified by 3 classifiers, One vs.One SVM, One vs. All SVM and Random Forest.
+We found that there were more negative tweets in the English tweets from two cities in the U.S than cities in other countries and many users tweeted negative tweets in the French tweets as whole. 
+%And it turned out that the English classifier has the best accuracy 
+As evaluation, we employed chi square test to compare distributions of sentiment values of tweets from two cities and to verify if they are not independent of location.
+120 cases were tested and 96 cases were concluded that the distributions are not independent of location.
+This outcome is acceptable in terms of a cultural aspect.
+Therefore it approves the validity of our system as result.
+
