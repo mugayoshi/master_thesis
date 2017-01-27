@@ -27,7 +27,7 @@ Twitter place ID を用いることで，各都市からのツイートを収集
 感情値が人でによって付与されたツイートのコーパスを訓練用データとして用いる．
 本論文では英語，フランス語，ドイツ語，スペイン語の4つの言語のコーパスを用いた
 
-実験では2016年11月から2017年1月16日までツイートの収集を行い，4言語合わせて1,000,000 を超えるツイートを収集した．
+実験では2016年11月初旬から2017年1月中旬までツイートの収集を行い，4言語合わせて1,000,000 を超えるツイートを収集した．
 そして，1対1 SVM，1対他 SVM，Random Forest の３つの分類器で収集したツイートを分類させた．
 その結果，英語のツイートでは，アメリカ合衆国の2都市からのツイートの多くはネガティブと判定された．
 また，フランス語のツイートでは全体的に多くのユーザーがネガティブなツイートを発信していたことがわかった．
@@ -65,7 +65,7 @@ In this thesis, we propose multi-language sentiment analysis of SNS, especially 
 We retrieve tweets in several languages from each city using Twitter place ID and then labell sentiment values to them by classifiers trained by machine learning.
 As training data, we used dataset that contains tweets in English, French, German and Spanish with sentiment labels annotated by people. 
 
-In the experiment, from the beginning of November 2016 to 16 January 2017 we obtained about a million tweets in total and they were clasified by 3 classifiers, One vs.One SVM, One vs. All SVM and Random Forest.
+In the experiment, from the beginning of November 2016 to mid-January 2017 we obtained about a million tweets in total and they were clasified by 3 classifiers, One vs.One SVM, One vs. All SVM and Random Forest.
 We found that there were more negative tweets in the English tweets from two cities in the U.S than cities in other countries and many users tweeted negative tweets in the French tweets as whole. 
 %And it turned out that the English classifier has the best accuracy 
 As evaluation, we employed chi square test to compare distributions of sentiment values of tweets from two cities and to verify if they are not independent of location.

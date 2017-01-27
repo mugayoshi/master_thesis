@@ -1,15 +1,17 @@
 \chapter{Discussion}
 In this chapter we discuss about the results shown in Section \ref{sec:result}.
+We detail about the results of the classification and the chi square test.
+
 \section{Classification Result}\label{sec:clf_result}
 We discuss about the classification results by each language in this section and summarise for all of the languages in the end.
 %example of tweets that are labelled very incorrectly if possible
 \subsection{English}
-Apparently in all of the cases more tweets are labelled as neutral than the others.
+Apparently in all of the cases, more tweets are labelled as neutral than the others.
 %Besides tweets that are classified as neutral are more than half of the whole.
 The minimum percentage of neutral tweets, 49.59 \%, is the result of San Francisco by One vs. One SVM classifier (Table \ref{tab:result_sf_en}).
-Except this case, more than half of the all of the tweets consist of tweets classified as neutral in every case.
+Except this case, more than half of the whole tweets are classified as neutral in all of the cases.
 And the maximum of neutral label, 89.30 \%, is the result of Buenos Aires by Random Forest classifier (Table \ref{tab:result_buenosaires_en}).
-The minimum percent of both positive and negative is also this casei, 6.85 \% and 3.85 \% respectively.
+The minimum percent of both positive and negative is also this case, 6.85 \% and 3.85 \% respectively.
 The maximum percentage of positive is London One vs. One SVM, 23.66 \% (Table \ref{tab:result_london_en}) and the maximum of negative is San Francisco One vs. One SVM, 26.92 \%.
 
 
@@ -17,42 +19,45 @@ For most of the cities there are more positive tweets than negative.
 The exceptions are London One vs. All SVM, all case of New York, Quebec One vs. All SVM and all case of San Francisco.
 Interestingly both of the two cities that have more negative tweets than positive in all case are in the same country, the U.S.
 Also, San Francisco One vs. One SVM (26.92 \%) and New York One vs. One SVM (26.90 \%) are the two highest percentage of negative label.
-According to these results, it seemed more users tweeted negative sentences both in the two cities than other cities.
+According to these results, more users tweeted negative sentences both in the two cities than the other cities.
 %We collected tweets after presidential election in November 2016 and .
 \subsection{French}
-There are many tweets labelled neutral in French as well especially in the cases of Random Forest.
-In many cases, the percent of them are more than 50 \% and the maximum percent of them, which is 75.99 \%, is Quebec Random Forest (Table \ref{tab:result_quebec_fr}) and this case contains the minimum percent of both positive and negative tweets as well (7.42 \%, 16.60 \% respectively).
-And the minimum of neutral tweets is 39.60 \% from New York One vs. One SVM (Table \ref{tab:result_ny_fr}).
+There are many tweets that are labelled neutral in French as well especially in the cases of Random Forest.
+In many cases, the percent of them are more than 50 \% and the maximum percent, which is 75.99 \%, is Quebec Random Forest (Table \ref{tab:result_quebec_fr}) and this case contains the minimum percent of both positive and negative tweets as well (7.42 \% and 16.60 \% respectively).
+And the minimum percent of neutral tweets is 39.60 \% from New York One vs. One SVM (Table \ref{tab:result_ny_fr}).
 The maximum percent of positive tweets is 40.41 \% classified by Random Forest and this is from the result of New York as well.
 The maximum percent of negative tweets is 28.88 \% Paris One vs. All SVM (Table \ref{tab:result_paris_fr}). 
 So far, positive and negative tweets are about 20-25 \% of the whole tweets from each city in most of the cases of the two SVM and this looks a similarity between these cities.
 
-There are more tweets labelled negative than positive in most of the cities except New York.
+There are more tweets that are labelled negative than positive in most of the cities except New York.
 Instead in the result of tweets from New York, there are always more positive tweets than negative ones.
-In addition, there are much more positive tweets than negative in the result of Random Forest (40.41 \% and 11.45 \%).
+In addition, there are much more positive tweets than negative in the result of Random Forest (40.41 \% and 11.45 \% respectively).
 As result, these result imply that except New York, Twitter users in the four cities tended to tweet more negative than positive.
 
 \subsection{German}
 Like English and French, most of the tweets are classified as neutral.
 The case of New York Random Forest contains the maximum percent of neutral tweets and the minimum percent of both positive and negative (98.45 \%, 1.15 \% and 0.40 \% respectively from Table \ref{tab:result_ny_de}).
 The maximum percent of both positive and negative is Hamburg One vs. All SVM and this case includes the minimum percent of neutral as well (17.48 \%, 11.40 \% and 71.12 \% respectively from Table \ref{tab:result_hamburg_de}).
-Also we can point out that there are more neutral tweets compared to the two languages because mostly the percent of neutral tweets are more than 70 \% at least.
+Also we can point out that there are more neutral tweets compared to English and French because mostly the percent of neutral tweets are more than 70 \% at least.
+However, the SVM classifiers labelled 50 \% and 60 \% of the whole tweets neutral in the results of the two languages.
 
-We can observe that there is a difference between cities in German-speaking countries and the others, specifically London and New York in this time.
+We can observe that there is a difference between cities in German-speaking countries and the others, specifically London and New York in this experiment.
 More tweets are labelled positive than negative in all of the cases but they are less percent in the cases of the two English-speaking cities than the other cities.
-This is contrary to the results of French tweets.
 For example, in the results of One vs. One SVM 5.46 \% and 4.65 \% of the whole tweets from London and New York are labelled positive while 14.14 \%, 16.72 \% and 16.23 \% are classified as positive in Berlin, Hamburg and Vienna respectively. 
-Not only this case, his can be seen in other cases as well.  
+This is contrary to the results of French tweets, in which more tweets are classified as negative than positive.
+%Not only this case, this can be seen in other cases as well.  
 Therefore these results show that location has something to do with this difference.
 %The result we obtained reveals user in the three cities at least post both positive and negative tweets more often than  
 \subsection{Spanish}
-Unlike the other three languages, there are few neutral tweets.
-In some cases, there is no tweet labelled neutral mostly because of the training dataset we use in this experiment as explained later.
-In all of the cases there are more positive tweets than negative whatever way of classification.
-For instance, the maximum percent of tweets with positive label classified by SVM method is London One vs. One SVM (66.56 \% Table \ref{tab:result_london_es}) and the minimum is Buenos Aires One vs. All SVM (60.13 \% Table \ref{tab:result_buenosaires_es}).
+Unlike the other three languages, there are much few tweets that are labelled neutral.
+In some cases, there is no tweet labelled neutral mostly because of the training dataset we use in this experiment as we explained later.
+In all of the cases there are more tweets classified as positive than negative whatever classifier it is.
+The gap between positive and negative labels in the Spanish tweets is significantly more huge than the other languages. 
+
+Within the Spanish tweets, the ratio of each sentiment value is different especially between Random Forest and the others.
+For instance, the maximum percent of tweets that are classified as positive by SVM method is London One vs. One SVM (66.56 \% Table \ref{tab:result_london_es}) and the minimum is Buenos Aires One vs. All SVM (60.13 \% Table \ref{tab:result_buenosaires_es}).
 And the maximum of positive tweets classified by Random Forest is Buenos Aires (89.12 \%) and the minimum is New York (87.85 \% from Table \ref{tab:result_ny_es}). 
-As for negative the maximum for SVM method is Buenos Aires One vs. All SVM (39.10 \%) and the minimum is London One vs. One SVM (33.32 \% from Table \ref{tab:result_london_es}) while the maximum for Random Forest is New York (12.15 \%) and the minimum is Buenos Aires (10.88 \%).
-But the ratio of each sentiment value is different especially between Random Forest and the others.
+As for negative, the maximum for SVM methods is Buenos Aires One vs. All SVM (39.10 \%) and the minimum is London One vs. One SVM (33.32 \% from Table \ref{tab:result_london_es}) while the maximum for Random Forest is New York (12.15 \%) and the minimum is Buenos Aires (10.88 \%).
 
 %As for negative tweets, the maximum for SVM method is the one for Random Forest is  
 %difference between cities
@@ -64,26 +69,26 @@ According to these outcomes, location does not differ the distributions of senti
 
 
 \subsection{Overall}\label{sec:discussion_overall}
-We can point out clearly Random Forest classifier tends to choose neutral more than SVM classifiers except Spanish.
+We can point out clearly Random Forest classifier tends to choose neutral more often than SVM classifiers except Spanish.
 This is applied to all of the results.
-One of the reason for this is that there are more neutral tweets than others in the training dataset.
-As Table \ref{tab:dataset2} shows, the English data labelled as positive, negative and neutral with agreement by more than two people are 1,595, 998 and 4,238 respectively for instance.
+One of the reasons for this is that there are more neutral tweets than others in the training dataset.
+As Table \ref{tab:dataset2} shows, the English data labelled as positive, negative and neutral with agreement by more than two people are 1,595, 998 and 4,238 respectively, for instance.
 
-We added extra data to the training dataset to prepare other training dataset for English, French and German.
+We added extra data to the training dataset so that we can compare classification results of modified training dataset in the four languages.
 Similar to \cite{dataset}, we added data labelled based on emoticons (positive and negative only).
-For example we labelled a tweet that contains one of smile emoticons as positive and vice versa for negative emoticons, such as :(, :/ and so on.
-As for Spanish, we eliminated positive and negative data from the Spanish dataset to adjust the size of each label. 
+For example we collected tweets and put positive label to a tweet that contains one of smile emoticons and vice versa for negative emoticons, such as :(, :/ and so on.
+As for Spanish, we eliminated positive and negative data from the dataset to adjust the number of each label. 
 
 It turned out that the results of the modified training dataset were different from the original.
-We found out that One vs. One SVM classifier trained on English data with more positive tweets labels tweets as positive more often than the original training dataset. 
-Also it figured out that even Random Forest classifier trained on the modified Spanish data with less positive and negative tweets choose neutral much more often.
+We found out that One vs. One SVM classifier that are trained on English data with more positive tweets labels tweets as positive more often than the original training dataset. 
+Also it figured out that even Random Forest classifier that are trained on the modified Spanish data with less positive and negative tweets choose neutral much more often.
 Thus, the classification result depends on training dataset, especially how many data of each label exist.
 
 There are two reasons that we decided not to apply the modified training dataset.
 At first it was not sure how common to use emoticons on Twitter.
-So, we considered that it was possible that expressions that contain those emoticons represented only a part of the subjective languages on Twitter.
-We asked some people who speaks one of the four languages to help this thesis and one of them who is a native Spanish speaker said the tweets of the modified Spanish training dataset was less correct than the original. 
-This happened not only for Spanish but other languages.
+We considered that it was possible that expressions with those emoticons represented only a part of the use of the subjective languages on Twitter.
+We asked some people who speaks one of the four languages as first language to help this thesis and one of them who is a native Spanish speaker said the tweets of the modified Spanish training dataset was less correct than the original. 
+This applies not only to Spanish but also to the other languages.
 Therefore we chose to use only the dataset from \cite{dataset} and \cite{dataset_spanish} without any modification.
 %Barcelona 04 Nov 
 
@@ -95,28 +100,30 @@ We discuss about the results of the chi square test in this section.
 %in the same way with Section \ref{sec:clf_result}. 
 
 %\subsection{English}
-As Table \ref{tab:result_chi_en} shows, the null hypothesis is rejected in 29 combinations for English tweets out of 30.
+As Table \ref{tab:result_chi_en} shows, the null hypothesis, ``If it is the same language, distributions of sentiment values of two different cities are independent of location.", is rejected in 29 combinations for English tweets out of 30.
 And according to the results shown in Table \ref{tab:result_chi_fr}, \ref{tab:result_chi_de}, \ref{tab:result_chi_es}, it is rejected in 28, 26, 13 cases out of 30 for French, German and Spanish tweets respectively . 
-For English, the only one case where the null hypothesis is accepted is New York and San Francisco classified by Random Forest and for French it is London and Paris classified by the two SVM method.
+For English tweets, the only one case where the null hypothesis is accepted is New York and San Francisco classified by Random Forest and for French it is London and Paris classified by the two SVM method.
 And for German it is accepted when we compare between Hamburg and Vienna and, London and New York classified by One vs. All SVM.
 As for Spanish, it is accepted in more than half of the cases.
-In other words, the null hypothesis is always rejected when we compare the result of Buenos Aires.
+In other words, the null hypothesis is always rejected when we compare tweets from Buenos Aires, from which we retrieved much more tweets than the other cities.
+As an example, there are 36,787 tweets from Barcelona and 841,879 from Buenos Aires.
 %These results imply that except the eight cases location has something to do with emotional reaction among the two cities on Twitter when it is the same language. 
 
 These outcomes above show that accuracy of the classifiers varies with languages. 
-And also we can confirm that the classifiers of English, French and German work well enough to perform a sentiment analysis especially by location because the classification results of tweets in those languages imply that the distributions of the sentiment values are not independent of location in seven cases out of 90.
+And also we can confirm that the classifiers of English, French and German work well enough to perform a sentiment analysis because the classification results of tweets in these languages imply that the distributions of the sentiment values are not independent of location in seven cases out of 90.
 This approves the classifiers because this consequence is acceptable in terms of a cultural aspect.
 However, we can not say the Spanish classifier is approved with these results.
-The result above is not enough to conclude that the classifier works well for a sentiment analysis by city.
+The result above is not enough to conclude that the Spanish classifier works well for a sentiment analysis by city.
 
 We asked some people who are able to speak French, German or Spanish fluently to check how accurate the classifiers are.
-And we did for English tweets ourselves.
 We told them to look at tweets labelled by the classifiers and to put sentiment labels themselves based on how they think. 
+For English tweets we did ourselves.
 And then we counted how many tweets are labelled correctly.
-The results are shows in Table \ref{tab:accuracy}. 
+The results are shown in Table \ref{tab:accuracy}. 
+The accuracy rate in this table means just how many tweets are labelled the same as the annotator.
 The accuracy of English classifiers is the best in these four languages and the worst is Spanish.
-These results reflect the results of the chi square test because with the better accuracy of classifiers, there are less cases where the null hypothesis is accepted.
-
+With the better accuracy of classifiers, there are less cases where the null hypothesis is accepted.
+Thus, the results of Table \ref{tab:accuracy} reflect the ones of the chi square test explained in Section \ref{sec:result_chi_test}.
 \begin{table}[ht]
 	\caption{Accuracy of classifiers in each language}
 	%\begin{tabular}{|l|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
@@ -125,7 +132,7 @@ These results reflect the results of the chi square test because with the better
 	English & 373 (74.6 \%) & 362 (72.4 \%)& 340 (68.0 \%)& 500\\ \hline
 	French & 95 (66.4 \%)  & 95 (66.4 \%)& 92 (64.3 \%)& 143 \\ \hline
 	German & 143 (44.3 \%)& 141 (43.7 \%)& 133 (41.2 \%)& 323 \\ \hline
-	Spanish & 111 (37.1 \%)& 116 (38.8 \%)& 100 (0.334 \%)& 299 \\ \hline
+	Spanish & 111 (37.1 \%)& 116 (38.8 \%)& 100 (33.4 \%)& 299 \\ \hline
 	\end{tabular}
 	\label{tab:accuracy}
 	\\ (The numbers in parentheses represent accuracy rate)

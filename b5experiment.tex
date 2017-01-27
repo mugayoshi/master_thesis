@@ -1,10 +1,10 @@
 \chapter{Experiment and Result}
-In this chapter, we describe experiment of sentiment analysis across different cities and show the results.
+In this chapter, we describe experiment of sentiment analysis across different cities and show the results of the experiment.
 \section{Preparation for Experiment}
-Before the experiment of sentiment analysis across cities, we measured F1 scores of each classifier in the four languages to confirm whether the classifiers built with the given dataset work well enough.
+Before the experiment of sentiment analysis across cities, we measured F1 scores of each classifier in the four languages to confirm whether classifiers built with the dataset mentioned in Section \label{sec:dataset} work well enough.
 The dataset was divided to 80 \% training data and 20 \% test data.
 Table \ref{tab:f1score} shows F1 scores of the classifiers in each language.
-As these scores show, we believe these classifiers work well enough to do experiment of sentiment analysis by city.
+%As these scores show, we believe these classifiers work well enough to do experiment of sentiment analysis by city.
 
 
 \begin{table}[ht]
@@ -28,13 +28,13 @@ We chose 12 cities that have a large population, mostly capitals in fact, becaus
 We tried to pick cities from as many countries as possible.
 One of the four languages has to be spoken as official language in the chosen cities.
 If possible we chose two cities from the same country. (e.g. New York and San Francisco)
-%For every city, we search almost all of the districts in every city to prepare the place ID list.
+We listed up coordinates of all of the districts in every city and searched the place IDs of the areas to prepare place ID lists.
 %When preparing place ID list of the cities, 
 
-We managed to retrieve about a million tweets in total from the beginning of November to 16 January 2017 with a script that uses tweepy, explained in Section \ref{sec:retrieving}.
+We managed to retrieve about a million tweets in total from the beginning of November to mid-January 2017 with a script that uses tweepy, explained in Section \ref{sec:retrieving}.
 During this period, we searched and retrieved tweets from the 12 cities in the four languages by specifying the language parameter in the Twitter search API.
-In Twitter API tweets for searching via the API are available only for a week.
-Thus we retrieved tweets every week during the days.
+In Twitter API, tweets that are accessible for the search API are available only for a week.
+Thus we retrieved tweets every week during the period.
 In Table \ref{tab:cities} the 12 cities are listed with the numbers of the retrieved tweets.
 
 %! these numbers should be updated !
@@ -73,17 +73,20 @@ In Table \ref{tab:cities} the 12 cities are listed with the numbers of the retri
 	\label{tab:cities}
 \end{table}
 
-After preparing retrieved tweet data for classification as explained in Section \ref{sec:overview}, the three classifiers trained with each language dataset put sentiment values to the retrieved tweets.
+After retrieving tweets, they were pre-processed for classification explained in Section \ref{sec:preprocess}.
+The three classifiers trained on each language dataset put sentiment values to the retrieved tweets.
 We implemented a Python script that labels tweets by the classifiers.
 %During classification, the parameters of the classifiers are optimised with cross validation, which uses the APIs of scikit-learn \cite{scikit}.
 %maybe explanation of parameter setting of cross validation ?
-A tweet has to be labelled as one of the sentiment values, positive, negative or neutral.
+A tweet has to be labelled as only one of the sentiment values, positive, negative or neutral.
 %The classification is done by cities and languages.
 
 \section{Result}\label{sec:result}
+Results of the experiment explained above are shown in this section.
+We show results of classification, review by annotators and chi square test in the following subsections.
 \subsection{Classification Result}
-In this subsection we show results of three classifiers of each city.
-The numbers in parentheses represent percentage of each sentiment value
+We show results of the three classifiers of each city in this subsection.
+The numbers in parentheses in the tables below represent percentage of each sentiment value.
 
 \subsubsection{English}
 Table \ref{tab:result_barcelona_en}, \ref{tab:result_berlin_en}, \ref{tab:result_buenosaires_en}, \ref{tab:result_hamburg_en}, \ref{tab:result_london_en}, \ref{tab:result_madrid_en}, \ref{tab:result_newyork_en}, \ref{tab:result_paris_en}, \ref{tab:result_quebec_en}, \ref{tab:result_sf_en}, \ref{tab:result_vienna_en} are results of English tweets.
@@ -439,22 +442,16 @@ Random Forest   & 22,198 (87.85 \%)& 3,069 (12.15 \%)& 0 (0.00 \%)  & 25,267 \\ 
 	\label{tab:result_ny_es}
 \end{table}
 
-
-\begin{comment}
-London
-N.Y or San Francisco
-
-\end{comment}
-
 \subsection{Review by Annotators}
-We show some of tweets that are labelled both correctly and wrongly.
-We define a tweet is labelled correctly if all of the classifiers put the same sentiment value as an annotator and if one or none of them does, we define a tweet is labelled wrongly.
+We show tweets that are labelled both correctly and wrongly.
+We define that a tweet is labelled correctly if all of the classifiers put the same sentiment value as an annotator.
+And if one or none of them does, we define a tweet is labelled wrongly.
 \subsubsection{English}
 We looked at 500 English tweets from London and labelled them ourselves.
 Table \ref{tab:correct_tweets_en}, \ref{tab:wrong_tweets_en} show some of the tweets that are labelled correctly and wrongly.
 
 \begin{table}[ht]
-	\caption{A part of tweets from London labelled correctly}
+	\caption{Tweets from London labelled correctly}
 	%\scalebox{0.7}[0.8]{
 	\begin{tabular}{|p{5cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
 	Tweet & One vs. One SVM &One vs. All SVM &Random Forest & Annotator\\ \hline
@@ -479,7 +476,7 @@ Table \ref{tab:correct_tweets_en}, \ref{tab:wrong_tweets_en} show some of the tw
 
 
 \begin{table}[ht]
-	\caption{A part of tweets from London labelled wrongly}
+	\caption{Tweets from London labelled wrongly}
 	%\scalebox{0.7}[0.8]{
 	\begin{tabular}{|p{5cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|} \hline
 	Tweet & One vs. One SVM &One vs. All SVM &Random Forest & Annotator\\ \hline
@@ -489,8 +486,8 @@ Table \ref{tab:correct_tweets_en}, \ref{tab:wrong_tweets_en} show some of the tw
 	A government of fools and fanatics & neutral& neutral& neutral& negative \\ \hline
 	Ah this weekend Essex with my fave girls & neutral& neutral& neutral& negative \\ \hline
 
-	Ah my phone screen (heart\_broken emoji) & neutral & neutral& neutral& negative \\ \hline
-	about 80 \% sure i have SAD" & negative & negative & neutral & negative\\ \hline
+	Ah my phone screen \{heart\_broken emoji\} & neutral & neutral& neutral& negative \\ \hline
+	about 80 \% sure i have SAD & negative & negative & neutral & negative\\ \hline
 	Ain't no after party like a Soho after party & negative & negative & neutral & neutral \\ \hline
 	Alafia knows how to make me smile & positive & neutral & neutral & positive \\ \hline
 	I feel so much lighter & negative & positive & negative & positive \\ \hline
@@ -564,7 +561,7 @@ Table \ref{tab:correct_tweets_de}, \ref{tab:wrong_tweets_de}  show some of the t
 	Danke euer Lehmi \&lt&positive&positive&positive&positive\\ \hline
 	Der Moment wenn du endlich Pause hast &positive&positive&positive&positive\\ \hline
 	Echt nicht mein (Mon)tag. &negative&negative&negative&negative\\ \hline
-	Endlich Home! (heart emoji) Ist das kalt geworden &positive&positive&positive&positive\\ \hline
+	Endlich Home! \{heart emoji\} Ist das kalt geworden &positive&positive&positive&positive\\ \hline
 
 	Endlich kann ich im Spiegel gucken: der Bart w\"achst &positive&positive&positive&positive\\ \hline
 	Erstaunlich fr\"uh Feierabend. &positive&positive&positive&positive\\ \hline
@@ -653,18 +650,18 @@ Table \ref{tab:correct_tweets_es}, \ref{tab:wrong_tweets_es}  show some of the t
 \clearpage
 
 
-\subsection{Result of Chi Square Test}
-For evaluation we employed chi square test of independence in each language to see if the distributions of sentiment values of two cities are independent or not. 
+\subsection{Result of Chi Square Test}\label{sec:result_chi_test}
+For evaluation we employed chi square test of independence in each language to see if distributions of sentiment values of two cities are independent of location. 
 Apparently different things happen in each city.
-Even though people in the two cities speak the same language, it is assumed that the distributions of sentiment values ought not to be independent of location.  
-If it turns out that they are not independent of location in many cases, this validates the sentiment analysis proposed in this thesis.
-The reason we decided to use this test is that the output belongs to categorical data in statistics.
-The output consists of a tweet and its sentiment value labelled by the classifier.
+Even though people in two cities speak the same language, it is assumed that distributions of sentiment values ought not to be independent of location.  
+If results of chi square test turn out that they are not independent of location in many cases, this validates the sentiment analysis proposed in this thesis.
+The reason we decided to use this test is that the output of the classification belongs to categorical data in statistics.
+The output consists of a tweet and its sentiment value labelled by the classifiers.
 Hence it is only allowed to count the observed frequency.
 We consider a cross-tabulation table of the observed frequency of sentiment values of two cities for chi square test.
 An example of such cross-tabulation table is Table \ref{tab:result_london_ny}.
-As it shows, the results of SVM (One vs. One and One vs. All) are similar but they are both different from the one of Random Forest.
-This happens to almost all of the results whatever language it is as we showed above.
+As it shows, the results of SVM classifiers (One vs. One and One vs. All) are similar but they are both different from the result of Random Forest.
+This happens to almost all of the results whatever language it is.
 Because the results between the classifiers are different, we decided to do chi square test on all of the results.
 
 \begin{table}[ht]
@@ -690,9 +687,9 @@ New York  & 11,838 (10.71 \%)& 13,874 (12.55 \%)& 84,861 (76.75 \%)& 110,573 \\ 
 	\\(The numbers in parentheses represent percentage of each sentiment value)
 \end{table}
 
-The null hypothesis of the chi square test is ``If it is the same language, the distributions of sentiment values of the two different cities are independent of location."
+The null hypothesis of chi square test we employed is ``If it is the same language, distributions of sentiment values of two different cities are independent of location."
 The $\chi^2$ statistic is calculated using the expected frequency and the values in the cross-tabulation.
-Expected frequency ($E_{ij}$)is calculated with equation \ref{eq:exp_freq}.
+Expected frequency $E_{ij}$ is calculated with equation \ref{eq:exp_freq} where observed frequency is $O_{ij}$.
 \begin{equation}
 E_{ij} = \frac{\sum_{l} O_{il} \cdot \sum_{m} O_{mj}}{\sum_{i} \sum_{j} O_{ij}}
 \label{eq:exp_freq}
@@ -703,13 +700,15 @@ And $\chi^2$ statistic is computed as
 \end{equation}
 Since there are two rows and three columns in the tabulation, the degree of freedom is 2 ($(2 - 1 ) \cdot  (3 - 1) = 2$).
 If the $\chi^2$ statistic is greater than 5.991, which is the appropriate critical value at a 5 \% level of significance when degree of freedom is 2, the null hypothesis is rejected.
-And it is concluded that the distributions between two cities are not independent of location. 
+And then it is concluded that the distributions between the two cities are not independent of location. 
 
 Table \ref{tab:result_chi_en}, \ref{tab:result_chi_fr}, \ref{tab:result_chi_de}, \ref{tab:result_chi_es} show the $\chi^2$ statistics of English, French, German and Spanish tweets of each combination of the cities respectively.
+We compared London and New York for every language.
 %We also compare English tweets for seven combinations, Paris \& Quebec, Berlin \& Hamburg and Barcelona \& Madrid to see if the result of chi square test is different from the one of the official language of each city.
 %For instance, if it is Barcelona we compare its result both in English and Spanish.
 In these tables, the numbers coloured red are smaller than 5.991.
-There are XX cases out of YY where such condition is met.
+There are 24 cases out of 120 where such condition is met.
+17 cases out of them are from the results of $\chi^2$ statistics of Spanish tweets.
 %In these XX cases, the null hypothesis is accepted and in the other cases it is rejected.
 %These results imply that except the XX cases location has something to do with emotional reaction among the two cities on Twitter when it is the same language. 
 %As for Paris \&Quebec, Berlin \& Hamburg and Barcelona \& Madrid, the results are consistent between the two languages in the 16 cases out of 18.

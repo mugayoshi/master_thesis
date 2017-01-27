@@ -2,26 +2,26 @@
 In this chapter we propose and explain the sentiment analysis across different cities.
 \section{Overview}\label{sec:overview}
 Figure \ref{fig:overview} describes the overview of the system.
-The system takes collected tweets by city as input.
-They are searched by the Twitter API, specifically with the place ID, which explained in Section \ref{sec:placeid}.
-Tweets are searched by each language by specifying language parameter of the Twitter search API.
+The system takes retrieved tweets by city as input.
+They are searched by the Twitter API, specifically with the place ID explained in Section \ref{sec:placeid}.
+Tweets are searched by each language by specifying language parameter in the Twitter search API.
 Before the tweets are labelled by the classifiers, they are pre-processed.
 One of the reasons of the preprocessing is to replace an emoji unicode in them with the explanation of the emoji.
 %This replacement is applied to all of the languages.
-The classifiers are built by machine learning and they require training data of annotated tweets, which are labelled positive, negative or neutral.
-In this paper we use three kinds of classifiers.
+The classifiers are built by machine learning and they require training data of annotated tweets, which are labelled positive, negative or neutral by people.
+In this thesis we use three kinds of classifiers.
 Two of them are Support Vector Machine (SVM) for multi class, one versus one and one versus all and the other one is Random Forest.
-During classification, the parameters of each classifier are optimised by cross validation.
-In the end, classifiers label input tweets as one of sentimental values, which are positive, negative or neutral.
+%During classification, the parameters of each classifier are optimised by cross validation.
+In the end, classifiers label the input tweets as one of sentimental values, which are positive, negative or neutral.
 
-The novelty of this system is taking into account location information.
-The location information make an analysis in each location possible.
-And we perform the sentiment analysis in multi-language and this unveils more aspects than monolingual analysis.
+The novelty of the system is taking into account location information.
+The location information makes it possible to compare and analyse different cities so that we can find differences between cities.
+And, we perform the sentiment analysis in multi-language and this unveils more aspects than monolingual analysis.
 
 We explain the details of each process in the following sections.
 \begin{figure}
 	\centering
-	\includegraphics[width=10cm]{./fig/overview3.png}
+	\includegraphics[width=12cm]{./fig/overview3.png}
 	\caption{Overview of sentiment analysis by city}
 	\label{fig:overview}
 \end{figure}
@@ -29,47 +29,49 @@ We explain the details of each process in the following sections.
 \section{Retrieving Tweets}\label{sec:retrieving}
 As the first step, we retrieve tweets by city.
 In this section, we explain the detail of how to retrieve tweets of each city.
-As we describe in the last section, we use Twitter Place ID to retrieved tweets.
-A place ID can be searched via Twitter API, specifically GET geo/reverse geocode 
-i%\cite{reverse_geocode}. 
+As we described in the last section, we use Twitter Place ID to retrieved tweets.
+A place ID can be searched via Twitter API, specifically GET geo/reverse geocode.
+%\cite{reverse_geocode}. 
 This API requires parameters of a latitude and a longitude of an area or a place.
 Because of this, we need to know names of areas or districts in a city and then the coordinates of the places to obtain the place IDs.
 
 In order to prepare a place ID list of a city, we investigate areas in a city.
 Paris, the capital city of France, is a good example to explain how to prepare a coordinate list.
 Figure \ref{fig:paris} shows the map of Paris city.
-As this figure shows, there are 20 districts in Paris and they are located in a circular pattern.
-Districts of small numbers, district 1 Louvre and district 2 Bourse for example, are located in the centre of the city and ones of large numbers are placed in the outer. 
-We list up these 20 districts and investigate the coordinate of each district using a website that provides coordinates of places \cite{latitude}.
+As this figure shows, there are 20 districts in Paris and they are located along a circular pattern.
+Districts named with small numbers, district 1 Louvre and district 2 Bourse for example, are located in the centre of the city and ones named with large numbers are placed in the outer. 
+We list up all of these 20 districts and investigate the coordinate of each district using a website that provides coordinates of places \cite{latitude}.
 %Then we prepare a coordinate list.
 Here is a part of the coordinate list of Paris below.
 
-\begin{enumerate}
-	\item Louvre,48.860,2.337
-	\item Bourse,48.869,2.341
-	\item Temple,48.867,2.361
-	\item Hotel de ville,48.858,2.352
-	\item Pantheon,48.846,2.346
-	\item ....
-\end{enumerate}
+\begin{itembox}[c]{A part of coordinate list of Paris}
+	\begin{enumerate}
+		\item Louvre,48.860,2.337
+		\item Bourse,48.869,2.341
+		\item Temple,48.867,2.361
+		\item Hotel de ville,48.858,2.352
+		\item Pantheon,48.846,2.346
+	\end{enumerate}
+\end{itembox}
 
 \begin{figure}
 	\centering
 	\scalebox{1.2}[1.2]{
-	\includegraphics[width=10cm]{./fig/paris.jpg}
+	\includegraphics[width=12cm]{./fig/paris.jpg}
 	}
 	\caption{Districts in Paris}
 	\label{fig:paris}
 \end{figure}
 
-We search place ID with the coordinate file specifying coordinates by the search API.
-The search API requires a latitude and a longitude as parameters and returns place ID of areas that are near the give coordinate. 
-The range can be specified as a parameter.
+We search place IDs with the coordinate file that loads  coordinates using a Twitter search API.
+The search API requires a latitude and a longitude as parameters and returns place ID of areas that are near the given coordinate. 
+The range can be specified as a parameter as well.
 In this time, we set 10,000 m (10 km) in the script in any case.
 %City sometime are not larger than 10 km2
 63 place IDs are listed in the place ID file of Paris.
-Here is a part of place id list of Paris.
+Here is a part of place ID list of Paris.
 
+\begin{itembox}[c]{A part of place ID list of Paris}
 \begin{enumerate}
 	\item 3102b24b5af90698: Paris, Ile-de-France: Paris
 	\item 32f8d3f2e68f75a0: Gennevilliers, France: Gennevilliers
@@ -79,51 +81,53 @@ Here is a part of place id list of Paris.
 	\item 3bcf61c45fdc2eae: Vanves, France: Vanves
 	\item 3d91d5bf2791cbd1: Rosny-sous-Bois, France: Rosny-sous-Bois
 \end{enumerate}
+\end{itembox}
 
-With the place ID list of a city, it is ready to retrieve tweets from the city.
+With a place ID list of a city, it is ready to retrieve tweets from the city.
 We implement a script to retrieve tweets using a Python module that handles Twitter API, tweepy \cite{tweepy}.
 The reason why we decided to use this module is because it can handle rate limit easily.
 In Twitter API, there is access limit of searching tweets.
 The limit depends on what to search.
-In 15 minutes, there can be only 180 requests for searching tweets and 15 requests for searching followers list for example.
-We implement the script so that we can continue to search tweets while the access limit occurs during the retrieval.
+In 15 minutes, there can be only 180 requests for searching tweets and 15 requests for searching followers list, for example.
+We implement the script using tweepy so that we can continue to search tweets while the access limit occurs during the retrieval.
 We need to handle the limit because we search tweets from more than 10 cities and the retrieval takes more than a day.
 The access limit occurs easily in this case.
+Without handling the access limit properly, retrieving tweets can stop unintentionally.
 %In Figure shows the snippet of the script that retrieve tweets.
 
-\section{Preprocessing}
-Not only on Twitter but also on SNS as a whole many people are using emoji nowadays \cite{emoji}.
-Besides emojis are used to express not just face expressions.
+\section{Preprocessing}\label{sec:preprocess}
+Not only on Twitter but also on SNS as a whole many people are using emoji nowadays to convey their feelings more easily \cite{emoji}.
+Besides, emojis are used to express not just face expressions.
 There are other categories that are not face mark, such as Animals \& Nature, Food \& Drink, Flags etc.
 Sometimes it takes an important role of a sentence.
 For example, Figure \ref{fig:crying} shows a tweet with an emoji of smiley with tears and the same tweet without the emoji.
-The one with the emoji looks to express something positive but the other one looks to have negative sentiment.
-Like this comparison, just one emoji can influence a sentiment of a sentence, tweet.
+The one with the emoji looks to express something positive.
+The person who tweeted this put the emoji maybe because something made him/her laugh.
+Whatever case, it is clear that the user wanted to show up positive feeling with the emoji.
+But the other tweet without the emoji looks to have negative sentiment.
+Like this comparison, just one emoji can influence a sentiment of a sentence, a phrase or a tweet.
 Thus, emojis should not be discarded in sentiment analysis.
 \begin{figure}
 	\centering
 	\scalebox{0.4}[0.4]{
-	\includegraphics[width=10cm]{./fig/crying.png}
+	\includegraphics[width=12cm]{./fig/crying.png}
 	}
 	\caption{Comparison of a tweet with or without an emoji}
 	\label{fig:crying}
 \end{figure}
 
-
+There are non linguistic strings that represents emoji in tweets retrieved by the search API and we replace them in the tweets.
 To detect all of the unicodes of emoji, we use a python module available on github \cite{emoji_package}. 
 This module is originally for output emojis on terminal.
 Figure \ref{fig:thumbs_up} shows an example of how to print an emoji.
-The module also recognises each emoji unicode using a dictionary in the module.
-A part of the dictionary is depicted in Figure \ref{fig:emoji_dict}.
-Therefore we implement a script to detect unicodes of emoji and to replace them with the explanations of each emoji.
 
 
 \begin{figure}
 	\centering
 	\scalebox{1.0}[1.0]{
-	\includegraphics[width=10cm]{./fig/emoji_package.png}
+	\includegraphics[width=12cm]{./fig/emoji_package.png}
 	}
-	\caption{Example of how to print an emoji on terminal}
+	\caption{Example to print an emoji on terminal}
 	\label{fig:thumbs_up}
 \end{figure}
 
@@ -137,41 +141,42 @@ Therefore we implement a script to detect unicodes of emoji and to replace them 
 	\label{fig:emoji_dict}
 \end{figure}
 
-
-We replace emoji unicodes by the script using the emoji module, specifically the dictionary in the module.
-%The script detects an unicode of an emoji in a tweet and 
+The module also recognises the unicode of each emoji using a dictionary in the module.
+A part of the dictionary is depicted in Figure \ref{fig:emoji_dict}.
+We implement a script to detect unicodes of emoji and to replace them with the explanations of each emoji as Figure \ref{fig:emoji_replacement} shows.
 %In Figure \ref{fig:emoji_replacement}, an emoji at the end of the sentence is replaced with the explanation of the emoji.
-The script detects an unicode of an emoji and replaces it with the description as Figure \ref{fig:emoji_replacement} shows.
 In this way, the tweet can have more meaningful characters for classifiers than the unicode, which is ``u\textbackslash U0001F625"
 In another way of saying, the sentence in Figure \ref{fig:emoji_replacement} gets more information because of the replacement.
 
 However, English is only available for replacement in this module itself.
 Since we perform a multi-language sentiment analysis, we need to handle the other languages.
-In a website \cite{emoji_explanation} explanations of emoji are listed in each category in 12 languages. 
-Not only European languages, even Asian languages, such as Japanese, Chinese, Arabic etc., are also available.
-Based on the descriptions, we manually make CSV file like below.
+Explanations of emojis are listed in a website \cite{emoji_explanation} in 12 languages. 
+This website covers not only European languages, even Asian languages, such as Japanese, Chinese, Arabic, are also available.
+Based on the descriptions, we manually make a CSV file like below.
 Each line in the CSV file contains a key of an emoji and the descriptions of the emoji in English, French, German and Spanish.
-We replace unicodes with the descriptions in each language.
-Tweets are processed in each language.
-So, the replacement in all of the four languages becomes possible by picking one of the descriptions depending on the language. 
+Therefore the script iterates on a tweet, detects an emoji unicode and the replaces it with the description by reading from the emoji dictionary file depending on the language.
+%So, using the emoji dictionary file makes it possible to replace in all of the four languages. 
 %This replacement is available in all of the four languages.
-\begin{description}
+\begin{itembox}[c]{A part of emoji dictionary file}
+	\begin{description}
 %{A part of emoji description CSV file}
 %English, Francais, Deutsch, Espa\~{n}ol, Portugu\^{e}s
 %keys,meaning,sens,Bedeutung,significado,significado
-	\item[key] English, French, German, Spanish
-	\item[:soccer\_ball:] Soccer Ball, Ballon de foot, Fu{\ss}ball, Bal\'on de f\'utbol
-	\item[:basketball\_and\_hoop:] Basketball And Hoop, Ballon de basket et panier, Basketball und Korb,Bal\'on de baloncesto y canasta
-	\item[:american\_football:] American Football, Football am\'ericain, American Football, F\'utbol americano
+		\item[key] English, French, German, Spanish
+		\item[:soccer\_ball:] Soccer Ball, Ballon de foot, Fu{\ss}ball, Bal\'on de f\'utbol
+		\item[:basketball\_and\_hoop:] Basketball And Hoop, Ballon de basket et panier, Basketball und Korb,Bal\'on de baloncesto y canasta
+		\item[:american\_football:] American Football, Football am\'ericain, American Football, F\'utbol americano
 
-	\item[:baseball:]Baseball, Balle de base-ball, Baseball, Pelota de b\'eisbol
-\end{description}
+		\item[:baseball:]Baseball, Balle de base-ball, Baseball, Pelota de b\'eisbol
+	\end{description}
+\end{itembox}
 
 When a user mentions something from an URL or other users, tweet contains URLs and user names as well.
 On Twitter, mentioning other users makes communication between users possible.
 And users puts an URL to share the website with other users.
 %It is also possible that a user is mentioned in tweets of other users. 
-But they are not really necessary for a sentiment analysis because we do not take into account of user information and shared URL in tweets.
+But they are not really necessary for a sentiment analysis because we do not take into account of user information and shared URL in tweets and they barely have sentiment themselves when it comes to sentiment analysis.  
+Also it is better to replace them to a certain string otherwise classifiers consider them as different words.
 Therefore we replace URL and user names in tweets with strings, ``\~http" and ``@user" respectively.
 The reason to use these strings is because originally they are used in the training dataset described in next section.
 
@@ -183,10 +188,10 @@ The reason to use these strings is because originally they are used in the train
 \end{figure}
 
 \section{Dataset}\label{sec:dataset}
-Since we apply machine learning method on the sentiment analysis in this thesis, a training dataset is necessary to train classifiers.
+Since we apply machine learning method on the sentiment analysis in this thesis, a training dataset is required to train classifiers.
 Besides we focus on Twitter specifically.
-Therefore it is better to have a dataset that contains labelled tweets than one that contains subjective expression with sentiment labels (e.g. sentences extracted from a review site) because the way of expression tends to be different between on Twitter and other platforms.
-Sentences on Twitter tend to be shorter in general mainly because the number in one tweet originally has to be less than 180 characters.
+Therefore it is better to have a dataset that contains labelled tweets than one that contains subjective expressions with sentiment labels (e.g. sentences extracted from a review site) because the way of expression tends to be different between on Twitter and other platforms such as news site or daily blog.
+Sentences on Twitter tend to be shorter in general mainly because the number in one tweet originally has to be less than 140 characters.
 For these reasons, we choose to use datasets that contain labelled tweets.  
 
 We do not prepare training dataset ourselves in this thesis but instead take it from other works.
@@ -241,9 +246,9 @@ Therefore they can be considered to be trustful and we believe the amount of the
 \end{table}
 \end{comment}
 
-The authors of used Amazon's Mechanical Turk \cite{mechanical_turk} so that the datasets are annotated by humans.
+Narr et al. used Amazon's Mechanical Turk \cite{mechanical_turk} so that the datasets are annotated by humans \cite{dataset}.
 The mechanical Turk is a crowdsourcing online market place for both individuals and businesses.
-They hired 3 annotators and they ensured that the annotated labels in the datasets were agreed by more than one annotator.
+They hired three annotators and they ensured that the annotated labels in the datasets were agreed by more than one annotator.
 Table \ref{tab:dataset2} shows the numbers of tweets for each sentiment value whose label two or more and all three annotators agreed on.
 %There are four kinds of sentiment values in the datasets, ``positive", ``negative", ``neutral"and ``n/a".
 %However, we do not use n/a category because it is not sure that we should take the ``n/a" label as neutral.
@@ -253,18 +258,18 @@ The Spanish tweet corpus contains over 68,000 Spanish tweets written by about 15
 Each tweets is tagged with its polarity, which is one of six labels: strong positive (P+), positive (P), neutral (NEU), negative (N), strong negative (N+) and no sentiment tag (NONE).
 To keep a consistency with the other datasets, we classify the dataset into three labels, which are positive, negative and neutral as same as the others.
 %We do not consider intensity of polarity.
-Thus we replace strong positive (P+) tag with positive (P) and strong negative (N+) tag with negative (N).
-We do not use NONE tag because it is not sure that we should take the ``n/a" label as neutral.
+Thus we consider strong positive (P+) tag as positive (P) and strong negative (N+) tag as negative (N).
+We do not use NONE tag because it is not sure that we should take the label as neutral.
 As a result there are way less neutral tweets than the others in the dataset as Table \ref{tab:dataset_esp} shows. 
 
 \section{Implementation of Classifiers}
-We employ three kinds of classifiers in this thesis.
+We apply three kinds of classifiers in this thesis.
 %As we explained in Section \ref{sec:multi_class_clf}
-Originally SVM is a binary classification method but it can be used for multi-class classification as well.
-We two type of multi-class classification SVM, one versus one and one versus all.
-One versus one compares two classes of $N$ classes and constructs a hyperplane while one versus all compares one of $N$ classes and the others.
+Originally Support Vector Machine (SVM) is a binary classification method but it can be used for multi-class classification as well.
+There are two types of multi-class classification SVM, one versus one and one versus all.
+One versus one SVM compares two classes of $N$ classes and constructs a hyperplane, which means it constructs ${}_n C _2$ hyperplanes in total while one versus all SVM compares one of $N$ classes and the others, and constructs $N$ hyperplanes in total.
 Random forest is an ensemble learning method that samples random data and constructs decision trees.
 It classifies based on the results of the multiple decision trees. 
-We apply the API of scikit-learn \cite{scikit} to build these classifiers in Python 2.7.12.
+We implement a script to build these classifiers using the API of scikit-learn \cite{scikit} in Python 2.7.12.
 
 
