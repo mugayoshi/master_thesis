@@ -1,8 +1,8 @@
 \chapter{Conclusion and Future Work}
-In this chapter we conclude the thesis and describe future work.
+This chapter concludes this thesis and describes future work.
 %Conclusion
 \section{Conclusion}
-We proposed multi-language sentiment analysis on Twitter across different cities in the thesis.
+This thesis proposed multi-language sentiment analysis on Twitter across different cities in the thesis.
 Searching tweets by Twitter place ID via Twitter API, we managed to retrieve about a million tweets from 12 cities in English, French, German and Spanish.
 We employed chi square test of independence as an evaluation to validate our system.
 For English, French and German tweets, the results show distributions of sentiment values are not independent of location between two cities in most of the cases.
@@ -37,6 +37,8 @@ Therefore we can apply them for multi-language sentiment analysis.
 Second, we need to have better dataset so that classifier trained on them classify tweets more accurately.
 In the experiment described in Section \ref{sec:experiment}, we did not modify the training dataset at all.
 Because of this, there is imbalance especially in the Spanish training dataset, in which there are much less tweets labelled neutral than positive and negative.
+It caused constraints of the sentiment analysis proposed in this thesis.
+With the constraints, we can not clarify that classifiers trained on the dataset we used in the experiment are accurate.
 As we mentioned about this in Section \ref{sec:clf_result}, the modification of training dataset leads to different classification result significantly.
 
 %Adjusting the amount of data of each label does not cause improvement all the time.
