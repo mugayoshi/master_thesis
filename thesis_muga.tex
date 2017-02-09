@@ -1,0 +1,126 @@
+%\documentclass[11pt,a4paper]{jreport}
+\documentclass[11pt,a4paper]{report}
+
+\usepackage{url}
+\usepackage{ascmac}
+\usepackage[dvipdfmx]{graphics}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{epsf}
+\usepackage{alltt}
+\usepackage{latexsym}
+\usepackage[dvipdfmx]{colortbl}
+\usepackage{listingsutf8}
+\usepackage{comment}
+\usepackage{pdfpages}
+\usepackage{geometry}
+
+\setlength{\topmargin}{-1.5cm}
+\setlength{\textheight}{240mm}
+\setlength{\textwidth}{150mm}
+\setlength{\evensidemargin}{7mm}
+\setlength{\oddsidemargin}{7mm}
+
+\usepackage{listings}
+  \lstset{
+    language={Python},
+    backgroundcolor={\color{white}},
+    basicstyle={\small\ttfamily},
+    identifierstyle={\small\ttfamily},
+    commentstyle={\small\ttfamily\color[rgb]{0.25,0.5,0.35}},
+    keywordstyle={\small\bfseries\ttfamily\color[rgb]{0.5,0,0.35}},
+    ndkeywordstyle={\small\sffamily},
+    stringstyle={\small\ttfamily\color[rgb]{0.6,0,0}},
+    frame={tl},
+    breaklines=true,
+    columns=[l]{fullflexible},
+    numbers=left,
+    xrightmargin=0zw,
+    xleftmargin=3zw,
+    numberstyle={\scriptsize},
+    stepnumber=1,
+    numbersep=1zw,
+    showspaces=false,
+    showstringspaces=false,
+    tabsize=2,
+    showtabs=false,
+		inputencoding=utf8,
+  }
+
+\usepackage{../sty/TitlePage_tmp}
+\usepackage{../sty/Appendix}
+\usepackage{../sty/here}
+%\usepackage{../sty/verbatimfiles}
+\usepackage{../sty/fancybox}
+
+\newcommand{\argmax}{\mathop{\rm arg~max}\limits}
+
+\renewcommand{\bibname}{References}
+
+% 表紙（形式設定）
+\ronbun{Master Thesis}
+\nendo{2016}
+\professor{Associate Professor \hspace{8pt} Hiroaki Saito}
+\shozoku{Keio University Graduate School of Science and Technology\\~School of Science for Open and Environmental Systems}
+\title{Multi-Language Sentiment Analysis of\\SNS across Different Cities}
+\author{Muga Yoshikawa}
+\studentID{(Student ID : 81521615)}
+\date{March 2017}
+
+\begin{document}
+
+
+% 表紙
+\maketitle
+
+% abst
+\input{./abst.tex}
+\newpage
+
+\setlength\parindent{1zw}
+
+% 目次
+\pagenumbering{roman}
+\tableofcontents
+\clearpage
+
+% 本文
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\input{./b1intro.tex}
+\input{./b2background.tex}
+%\input{./b3preresearch.tex}
+\input{./b3related_work.tex}
+%\input{./b4study.tex}
+\input{./b4proposal.tex}
+%\input{./b5exp.tex}
+\input{./b5experiment.tex}
+%\input{./b6eval.tex}
+\input{./b6discussion.tex}
+%\input{./b7conc.tex}
+\input{./b7conclusion.tex}
+
+
+% 謝辞
+\newpage
+\addcontentsline{toc}{chapter}{Acknowledgement}
+%\input{./thanks.tex}
+\input{./acknowledgement.tex}
+
+% 参考文献
+\newpage
+\addcontentsline{toc}{chapter}{References}
+%\bibliographystyle{../sty/phd}
+\bibliographystyle{abbrv}
+\bibliography{./bibliography.bib}
+
+\newpage
+
+% 付録
+\newpage
+\thispagestyle{empty}
+\addcontentsline{toc}{chapter}{Appendix}
+\input{./appendix.tex}
+
+
+\end{document}
